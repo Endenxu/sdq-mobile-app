@@ -1,0 +1,57 @@
+{
+  "expo": {
+    "name": "sdq",
+    "slug": "sdq",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/sdqnobglogo.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#F2F2F2",
+      "image": "./assets/sdqnobglogo2.png"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "requireFullScreen": true,
+      "splash": {
+        "backgroundColor": "#F2F2F2",
+        "image": "./assets/sdqnobglogo2.png"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon1.png",
+        "backgroundColor": "#F2F2F2"
+      },
+      "package": "com.w3itexperts.ombe",
+      "permissions": ["ACCESS_FINE_LOCATION"],
+      "config": {
+        "googleMaps": {
+          "apiKey": "YOUR_GOOGLE_MAPS_API_KEY"
+        }
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
+          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
+          "recordAudioAndroid": true
+        }
+      ],
+      [
+        "expo-screen-orientation",
+        {
+          "initialOrientation": "DEFAULT"
+        }
+      ]
+    ]
+  }
+}
