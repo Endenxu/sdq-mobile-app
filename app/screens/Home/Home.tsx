@@ -17,103 +17,58 @@ import { useDispatch, useSelector } from "react-redux";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigation/RootStackParamList";
 import { addTowishList } from "../../redux/reducer/wishListReducer";
-import ImageSwiper from "../../components/ImageSwiper";
 import Cardstyle4 from "../../components/Card/Cardstyle4";
 import { openDrawer } from "../../redux/actions/drawerAction";
+import Button from "../../components/Button/Button";
 
-const ArrivalData = [
+const AllData = [
   {
-    id: "1",
-    title: "Beverages",
-    subtitle: "41 Menus",
-    image: IMAGES.cup,
-  },
-  {
-    id: "2",
-    title: "Foods",
-    subtitle: "37 Menus",
-    image: IMAGES.hamburger,
-  },
-  {
-    id: "3",
-    title: "Beverages",
-    subtitle: "41 Menus",
-    image: IMAGES.cup,
-  },
-  {
-    id: "4",
-    title: "Foods",
-    subtitle: "37 Menus",
-    image: IMAGES.hamburger,
-  },
-];
-
-const CardStyleData = [
-  {
-    id: "0",
+    id: "1234",
     image: IMAGES.item1,
-    title: "Hot Creamy Cappuccino Latte Ombe",
-    price: "$12.6",
-    countnumber: "50 Pts",
+    name: "Khaled",
+    title: "Bank Documents",
   },
   {
-    id: "1",
+    id: "1234",
     image: IMAGES.item2,
-    title: "Creamy Mocha Ome Coffee",
-    price: "$13.6",
-    countnumber: "50 Pts",
+    name: "Hugh",
+    title: "Bank Documents",
   },
   {
-    id: "2",
+    id: "1236",
     image: IMAGES.item3,
-    title: "Original Latte Ombe Hot Coffee",
-    price: "$12.6",
-    countnumber: "50 Pts",
-  },
-];
-
-const SwiperData = [
-  {
-    id: "1",
-    image: IMAGES.item11,
-    title: "Creamy Ice Coffe",
-    price: "5.8",
-    discount: "$8.0",
+    name: "John",
+    title: "Bank Documents",
   },
   {
-    id: "2",
-    image: IMAGES.item12,
-    title: "Creamy Ice Coffe",
-    price: "5.8",
-    discount: "$8.0",
+    id: "1234",
+    image: IMAGES.item1,
+    name: "Khaled",
+    title: "Bank Documents",
   },
   {
-    id: "3",
-    image: IMAGES.item11,
-    title: "Creamy Ice Coffe",
-    price: "5.8",
-    discount: "$8.0",
+    id: "1234",
+    image: IMAGES.item1,
+    name: "Khaled",
+    title: "Bank Documents",
   },
   {
-    id: "4",
-    image: IMAGES.item12,
-    title: "Creamy Ice Coffe",
-    price: "5.8",
-    discount: "$8.0",
+    id: "1234",
+    image: IMAGES.item1,
+    name: "Khaled",
+    title: "Bank Documents",
   },
   {
-    id: "5",
-    image: IMAGES.item11,
-    title: "Creamy Ice Coffe",
-    price: "5.8",
-    discount: "$8.0",
+    id: "1234",
+    image: IMAGES.item1,
+    name: "Khaled",
+    title: "Bank Documents",
   },
   {
-    id: "6",
-    image: IMAGES.item12,
-    title: "Creamy Ice Coffe",
-    price: "5.8",
-    discount: "$8.0",
+    id: "1234",
+    image: IMAGES.item1,
+    name: "Khaled",
+    title: "Bank Documents",
   },
 ];
 
@@ -150,7 +105,7 @@ export const Home = ({ navigation }: HomeScreenProps) => {
                   color: colors.title,
                 }}
               >
-                Good Morning
+                Good Day
               </Text>
               <Text
                 style={{
@@ -159,7 +114,7 @@ export const Home = ({ navigation }: HomeScreenProps) => {
                   color: colors.title,
                 }}
               >
-                Williams
+                Khaled
               </Text>
             </View>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -215,122 +170,29 @@ export const Home = ({ navigation }: HomeScreenProps) => {
         <View
           style={[
             GlobalStyleSheet.container,
-            { padding: 0, paddingHorizontal: 30, paddingTop: 15 },
+            { padding: 0, paddingHorizontal: 30, paddingTop: 10 },
           ]}
         >
           <View>
             <TextInput
-              placeholder="Search Best items for You"
+              placeholder="Search"
               style={[
                 styles.TextInput,
                 { color: COLORS.title, backgroundColor: "#FAFAFA" },
               ]}
               placeholderTextColor={"#929292"}
             />
-            <View style={{ position: "absolute", top: 15, right: 20 }}>
+            <View style={{ position: "absolute", top: 15, right: 50 }}>
               <Feather name="search" size={24} color={"#C9C9C9"} />
             </View>
-          </View>
-        </View>
-        <View style={{ alignItems: "center" }}>
-          <View style={[GlobalStyleSheet.container, { padding: 0 }]}>
-            <ImageSwiper data={SwiperData} />
-          </View>
-        </View>
-        <View
-          style={[
-            GlobalStyleSheet.container,
-            { paddingHorizontal: 0, paddingTop: 0 },
-          ]}
-        >
-          <View style={[GlobalStyleSheet.flex, { paddingHorizontal: 30 }]}>
-            <Text
-              style={[
-                styles.brandsubtitle3,
-                { fontSize: 18, color: colors.title },
-              ]}
+            <TouchableOpacity
+              style={{ position: "absolute", top: 15, right: -10 }}
             >
-              Categories
-            </Text>
-          </View>
-          <View
-            style={{
-              marginHorizontal: -15,
-              paddingHorizontal: 15,
-              paddingTop: 25,
-            }}
-          >
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ paddingHorizontal: 30 }}
-            >
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: 15,
-                  marginRight: 10,
-                  marginBottom: 20,
-                }}
-              >
-                {ArrivalData.map((data: any, index) => {
-                  return (
-                    <TouchableOpacity
-                      activeOpacity={0.8}
-                      onPress={() => {
-                        navigation.navigate("Products");
-                      }}
-                      key={index}
-                      style={[
-                        styles.arrivaldata,
-                        {
-                          backgroundColor: theme.dark
-                            ? colors.background
-                            : colors.card,
-                          borderColor: "#EFEFEF",
-                          shadowColor: "rgba(4,118,78,.6)",
-                        },
-                      ]}
-                    >
-                      <View
-                        style={[
-                          GlobalStyleSheet.flexcenter,
-                          { gap: 20, justifyContent: "flex-start" },
-                        ]}
-                      >
-                        <Image
-                          style={[GlobalStyleSheet.image3]}
-                          source={data.image}
-                        />
-                        <View>
-                          <Text
-                            style={{
-                              ...FONTS.fontMedium,
-                              fontSize: 16,
-                              color: colors.title,
-                            }}
-                          >
-                            {data.title}
-                          </Text>
-                          <Text
-                            style={{
-                              ...FONTS.fontRegular,
-                              fontSize: 14,
-                              color: COLORS.primary,
-                            }}
-                          >
-                            {data.subtitle}
-                          </Text>
-                        </View>
-                      </View>
-                    </TouchableOpacity>
-                  );
-                })}
-              </View>
-            </ScrollView>
+              <Feather name="filter" size={24} color={"#5F5F5F"} />
+            </TouchableOpacity>
           </View>
         </View>
+
         <View
           style={[
             GlobalStyleSheet.container,
@@ -344,7 +206,7 @@ export const Home = ({ navigation }: HomeScreenProps) => {
                 { fontSize: 18, color: colors.title },
               ]}
             >
-              Featured Beverages
+              Displayed Files
             </Text>
             <TouchableOpacity onPress={() => navigation.navigate("Products")}>
               <Text
@@ -359,10 +221,11 @@ export const Home = ({ navigation }: HomeScreenProps) => {
           </View>
         </View>
         <View style={[GlobalStyleSheet.container, { paddingHorizontal: 30 }]}>
-          {CardStyleData.map((data: any, index: any) => {
+          {AllData.map((data: any, index: any) => {
             return (
-              <View key={index} style={{ marginBottom: 40 }}>
+              <View key={index} style={{ marginBottom: 20 }}>
                 <Cardstyle4
+                  name={data.name}
                   id={data.id}
                   image={data.image}
                   price={data.price}
@@ -376,6 +239,11 @@ export const Home = ({ navigation }: HomeScreenProps) => {
           })}
         </View>
       </ScrollView>
+      <Button
+        title={"Upload File"}
+        onPress={() => navigation.navigate("SingIn")}
+        style={{ borderRadius: 52, marginLeft: 15, marginRight: 15 }}
+      />
     </View>
   );
 };
@@ -408,6 +276,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#EBEBEB",
     backgroundColor: "#FAFAFA",
+    width: 270,
   },
   brandsubtitle2: {
     ...FONTS.fontSemiBold,

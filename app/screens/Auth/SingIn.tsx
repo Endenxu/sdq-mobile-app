@@ -73,7 +73,7 @@ const SingIn = ({ navigation }: SingInScreenProps) => {
                 onChangeText={(value) => console.log(value)}
                 isFocused={isFocused}
                 inputBorder
-                defaultValue="williamsmith"
+                defaultValue="Khaled"
               />
             </View>
             <View style={[GlobalStyleSheet.container, { padding: 0 }]}>
