@@ -51,7 +51,7 @@ const WelCome = ({ navigation }: WelComeScreenProps) => {
             ]}
           >
             <Text style={[styles.title, { color: colors.title }]}>
-              Welcome to SDQ!
+              Welcome!
             </Text>
             <View style={{ marginBottom: 0 }}>
               <SocialBtn

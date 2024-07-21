@@ -20,55 +20,56 @@ import { addTowishList } from "../../redux/reducer/wishListReducer";
 import Cardstyle4 from "../../components/Card/Cardstyle4";
 import { openDrawer } from "../../redux/actions/drawerAction";
 import Button from "../../components/Button/Button";
+import SuccessModal from "../../components/Modal/SuccessModal";
 
 const AllData = [
   {
-    id: "1234",
+    id: "1234100",
     image: IMAGES.item1,
     name: "Khaled",
-    title: "Bank Documents",
+    title: "Bank Document",
   },
   {
-    id: "1234",
+    id: "1234200",
     image: IMAGES.item2,
     name: "Hugh",
-    title: "Bank Documents",
+    title: "QR",
   },
   {
-    id: "1236",
+    id: "1234300",
     image: IMAGES.item3,
     name: "John",
-    title: "Bank Documents",
+    title: "Code",
   },
   {
-    id: "1234",
+    id: "1234400",
     image: IMAGES.item1,
     name: "Khaled",
     title: "Bank Documents",
   },
   {
-    id: "1234",
-    image: IMAGES.item1,
+    id: "1234500",
+    image: IMAGES.item2,
     name: "Khaled",
-    title: "Bank Documents",
+    title: "Proposals",
   },
   {
-    id: "1234",
-    image: IMAGES.item1,
+    id: "1234600",
+    image: IMAGES.item3,
     name: "Khaled",
-    title: "Bank Documents",
+    title: "thesis",
   },
   {
-    id: "1234",
+    id: "1234700",
     image: IMAGES.item1,
     name: "Khaled",
-    title: "Bank Documents",
+    title: "Important Documents",
   },
   {
-    id: "1234",
-    image: IMAGES.item1,
+    id: "1234800",
+    image: IMAGES.item2,
     name: "Khaled",
-    title: "Bank Documents",
+    title: "Proposals",
   },
 ];
 
@@ -196,7 +197,7 @@ export const Home = ({ navigation }: HomeScreenProps) => {
         <View
           style={[
             GlobalStyleSheet.container,
-            { paddingHorizontal: 0, paddingTop: 0, paddingBottom: 10 },
+            { paddingHorizontal: 0, paddingTop: 5, paddingBottom: 0 },
           ]}
         >
           <View style={[GlobalStyleSheet.flex, { paddingHorizontal: 30 }]}>
@@ -208,22 +209,22 @@ export const Home = ({ navigation }: HomeScreenProps) => {
             >
               Displayed Files
             </Text>
-            <TouchableOpacity onPress={() => navigation.navigate("Products")}>
+            {/*<TouchableOpacity onPress={() => navigation.navigate("Products")}>
               <Text
                 style={[
                   styles.brandsubtitle3,
                   { fontSize: 16, color: COLORS.primary },
                 ]}
               >
-                More
+              More
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity>*/}
           </View>
         </View>
-        <View style={[GlobalStyleSheet.container, { paddingHorizontal: 30 }]}>
+        <View style={[GlobalStyleSheet.container, { paddingHorizontal: 10 }]}>
           {AllData.map((data: any, index: any) => {
             return (
-              <View key={index} style={{ marginBottom: 20 }}>
+              <View key={index} style={{ marginBottom: 5 }}>
                 <Cardstyle4
                   name={data.name}
                   id={data.id}
@@ -239,11 +240,18 @@ export const Home = ({ navigation }: HomeScreenProps) => {
           })}
         </View>
       </ScrollView>
-      <Button
-        title={"Upload File"}
-        onPress={() => navigation.navigate("SingIn")}
-        style={{ borderRadius: 52, marginLeft: 15, marginRight: 15 }}
-      />
+      <View
+        style={{
+          borderTopLeftRadius: 15,
+          borderTopRightRadius: 15,
+        }}
+      >
+        <Button
+          title={"Upload File"}
+          onPress={() => navigation.navigate("SingIn")}
+          style={{ borderRadius: 52, marginLeft: 15, marginRight: 15 }}
+        />
+      </View>
     </View>
   );
 };

@@ -1,4 +1,11 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import React, { useState } from "react";
 import { COLORS, FONTS } from "../../constants/theme";
 import { IMAGES } from "../../constants/Images";
@@ -56,13 +63,7 @@ const Cardstyle4 = ({
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={onPress}
-      style={{
-        flexDirection: "row",
-        width: "100%",
-        alignItems: "flex-start",
-        borderColor: "#000000",
-        borderWidth: 1,
-      }}
+      style={[styles.datacontainer]}
     >
       <View
         style={{
@@ -70,45 +71,26 @@ const Cardstyle4 = ({
           alignItems: "center",
         }}
       >
-        <View
-          style={{
-            height: 35,
-            width: "100%",
-            backgroundColor: COLORS.primary,
-            borderRadius: 200,
-            aspectRatio: 1 / 1,
-            alignItems: "center",
-            justifyContent: "center",
-            right: 20,
-            overflow: "hidden",
-          }}
-        >
+        <View style={[styles.dataprofile]}>
           <Image
             style={{ height: undefined, width: "100%", aspectRatio: 1 / 1 }}
             source={image}
           />
         </View>
+        <View style={{ right: 15 }}>
+          <Text style={{ ...FONTS.fontSm }}>#{id}</Text>
+        </View>
       </View>
 
-      <View
-        style={{
-          width: "70%",
-          paddingHorizontal: 2,
-          paddingRight: product ? 10 : 1,
-          borderColor: "#000000",
-          borderWidth: 1,
-          overflow: "hidden",
-          right: 30,
-        }}
-      >
+      <View style={[styles.datatextcontainer]}>
         <View>
           <Text
             style={{
               ...FONTS.fontMedium,
               fontSize: 16,
               color: colors.title,
-              paddingRight: 40,
-              paddingBottom: 10,
+              paddingRight: 0,
+              paddingBottom: 0,
             }}
           >
             {name}
@@ -121,11 +103,26 @@ const Cardstyle4 = ({
               ...FONTS.fontMedium,
               fontSize: 16,
               color: colors.title,
-              paddingRight: 40,
+              paddingRight: 0,
             }}
           >
             {title}
           </Text>
+        </View>
+      </View>
+
+      <View
+        style={{
+          width: 0,
+          alignItems: "center",
+          right: 11,
+        }}
+      >
+        <View style={[styles.datastatus]}>
+          <Image
+            style={{ height: undefined, width: "100%", aspectRatio: 1 / 1 }}
+            source={image}
+          />
         </View>
       </View>
     </TouchableOpacity>
@@ -137,6 +134,55 @@ const styles = StyleSheet.create({
     ...FONTS.fontMedium,
     fontSize: 12,
     color: COLORS.title,
+  },
+  datacontainer: {
+    flexDirection: "row",
+    width: "100%",
+    alignItems: "flex-start",
+    borderColor: "#ddd",
+    borderWidth: 1,
+    borderRadius: 5,
+    backgroundColor: "#FFFFFF",
+    height: 65,
+    shadowOpacity: 0.4,
+    shadowRadius: 8,
+    elevation: 5,
+    borderBottomWidth: 6,
+    borderBottomColor: "#ccc",
+    shadowColor: "#000",
+    overflow: "hidden",
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+  },
+  dataprofile: {
+    height: 35,
+    width: "100%",
+    backgroundColor: COLORS.primary,
+    borderRadius: 200,
+    aspectRatio: 1 / 1,
+    alignItems: "center",
+    justifyContent: "center",
+    right: 18,
+    overflow: "hidden",
+  },
+  datastatus: {
+    height: 20,
+    width: "100%",
+    backgroundColor: COLORS.primary,
+    borderRadius: 200,
+    aspectRatio: 1 / 1,
+    alignItems: "center",
+    justifyContent: "center",
+    right: 7,
+    overflow: "hidden",
+  },
+  datatextcontainer: {
+    width: "70%",
+    paddingHorizontal: 5,
+    overflow: "hidden",
+    right: 29,
   },
 });
 
