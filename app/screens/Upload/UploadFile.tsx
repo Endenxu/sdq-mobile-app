@@ -19,12 +19,9 @@ import { IMAGES } from "../../constants/Images";
 import Button from "../../components/Button/Button";
 import Header from "../../layout/Header";
 
-type ProductsDetailsScreenProps = StackScreenProps<
-  RootStackParamList,
-  "ProductsDetails"
->;
+type UploadFileScreenProps = StackScreenProps<RootStackParamList, "UploadFile">;
 
-const ProductsDetails = ({ navigation }: ProductsDetailsScreenProps) => {
+const UploadFile = ({ navigation }: UploadFileScreenProps) => {
   const theme = useTheme();
   const { colors }: { colors: any } = theme;
 
@@ -33,7 +30,7 @@ const ProductsDetails = ({ navigation }: ProductsDetailsScreenProps) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.card }}>
       <Header
-        title="Details"
+        title="Upload File"
         leftIcon={"back"}
         rightIcon4={"home"}
         //titleLeft
@@ -76,7 +73,7 @@ const ProductsDetails = ({ navigation }: ProductsDetailsScreenProps) => {
         ]}
       >
         <Button
-          title={"Download"}
+          title={"Upload this File"}
           color={COLORS.primary}
           onPress={() => navigation.navigate("SingIn")}
           style={{ borderRadius: 52 }}
@@ -120,4 +117,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProductsDetails;
+export default UploadFile;

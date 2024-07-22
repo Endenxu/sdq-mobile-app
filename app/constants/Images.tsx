@@ -187,4 +187,7 @@ export const IMAGES = {
   sdqwhitebg: require("../assets/images/sdqwhitebg.png"),
   sdqwhitetext: require("../assets/images/sdqwhitetext.png"),
   //sdqmain: require("../assets/images/sdqmain.ai"),
+  authorized: require("../assets/images/authorized.png"),
+  new: require("../assets/images/new.png"),
+  blankperson: require("../assets/images/blankperson.png"),
 };

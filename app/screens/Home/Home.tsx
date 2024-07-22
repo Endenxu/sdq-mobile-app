@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   TextInput,
   StyleSheet,
+  Modal,
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { GlobalStyleSheet } from "../../constants/StyleSheet";
@@ -20,56 +21,73 @@ import { addTowishList } from "../../redux/reducer/wishListReducer";
 import Cardstyle4 from "../../components/Card/Cardstyle4";
 import { openDrawer } from "../../redux/actions/drawerAction";
 import Button from "../../components/Button/Button";
+import LoginModal from "../../components/Modal/LoginModal";
 import SuccessModal from "../../components/Modal/SuccessModal";
 
 const AllData = [
   {
     id: "1234100",
-    image: IMAGES.item1,
+    image: IMAGES.blankperson,
     name: "Khaled",
     title: "Bank Document",
+    status: IMAGES.new,
   },
   {
     id: "1234200",
-    image: IMAGES.item2,
+    image: IMAGES.blankperson,
     name: "Hugh",
     title: "QR",
+    status: IMAGES.new,
   },
   {
     id: "1234300",
-    image: IMAGES.item3,
+    image: IMAGES.blankperson,
     name: "John",
     title: "Code",
+    status: IMAGES.new,
   },
   {
     id: "1234400",
-    image: IMAGES.item1,
+    image: IMAGES.blankperson,
     name: "Khaled",
     title: "Bank Documents",
+    status: IMAGES.authorized,
   },
   {
     id: "1234500",
-    image: IMAGES.item2,
+    image: IMAGES.blankperson,
     name: "Khaled",
     title: "Proposals",
+    status: IMAGES.authorized,
   },
   {
     id: "1234600",
-    image: IMAGES.item3,
+    image: IMAGES.blankperson,
     name: "Khaled",
     title: "thesis",
+    status: IMAGES.authorized,
   },
   {
     id: "1234700",
-    image: IMAGES.item1,
+    image: IMAGES.blankperson,
     name: "Khaled",
     title: "Important Documents",
+    status: IMAGES.authorized,
   },
   {
     id: "1234800",
-    image: IMAGES.item2,
+    image: IMAGES.blankperson,
     name: "Khaled",
     title: "Proposals",
+    status: IMAGES.authorized,
+  },
+];
+
+const ActionData = [
+  {
+    icon: "log-out",
+    title: "Login",
+    sheet: "login",
   },
 ];
 
@@ -87,9 +105,12 @@ export const Home = ({ navigation }: HomeScreenProps) => {
   const addItemToWishList = (data: any) => {
     dispatch(addTowishList(data));
   };
+  // Modal use effect
+  const [activeSheet, setActiveSheet] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
-    <View style={{ backgroundColor: colors.card, flex: 1 }}>
+    <View style={{ backgroundColor: colors.card, flex: 1, zIndex: 0 }}>
       <View style={{}}>
         <View
           style={[
@@ -186,11 +207,64 @@ export const Home = ({ navigation }: HomeScreenProps) => {
             <View style={{ position: "absolute", top: 15, right: 50 }}>
               <Feather name="search" size={24} color={"#C9C9C9"} />
             </View>
-            <TouchableOpacity
-              style={{ position: "absolute", top: 15, right: -10 }}
-            >
-              <Feather name="filter" size={24} color={"#5F5F5F"} />
-            </TouchableOpacity>
+
+            <View style={{ bottom: 60 }}>
+              <View>
+                {ActionData.map((data: any, index) => {
+                  return (
+                    <TouchableOpacity
+                      key={index}
+                      style={{ position: "absolute", top: 15, right: -10 }}
+                    >
+                      <Feather
+                        name="filter"
+                        size={24}
+                        color={"#5F5F5F"}
+                        onPress={() => {
+                          {
+                            setActiveSheet(data.sheet);
+                            setModalVisible(true);
+                          }
+                        }}
+                      />
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
+
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+              >
+                <View
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flex: 1,
+                    position: "relative",
+                  }}
+                >
+                  <TouchableOpacity
+                    activeOpacity={1}
+                    onPress={() => {
+                      setModalVisible(true);
+                    }}
+                    style={{
+                      position: "absolute",
+                      height: "100%",
+                      width: "100%",
+                      backgroundColor: "rgba(0,0,0,.3)",
+                    }}
+                  />
+                  {activeSheet === "login" ? (
+                    <LoginModal close={setModalVisible} />
+                  ) : (
+                    <SuccessModal />
+                  )}
+                </View>
+              </Modal>
+            </View>
           </View>
         </View>
 
@@ -230,6 +304,7 @@ export const Home = ({ navigation }: HomeScreenProps) => {
                   id={data.id}
                   image={data.image}
                   price={data.price}
+                  status={data.status}
                   countnumber={data.countnumber}
                   title={data.title}
                   onPress={() => navigation.navigate("ProductsDetails")}
@@ -248,7 +323,7 @@ export const Home = ({ navigation }: HomeScreenProps) => {
       >
         <Button
           title={"Upload File"}
-          onPress={() => navigation.navigate("SingIn")}
+          onPress={() => navigation.navigate("UploadFile")}
           style={{ borderRadius: 52, marginLeft: 15, marginRight: 15 }}
         />
       </View>

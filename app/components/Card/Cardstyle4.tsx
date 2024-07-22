@@ -23,6 +23,7 @@ type Props = {
   price: string;
   brand?: string;
   image?: any;
+  status?: any;
   product?: any;
   Myorder?: any;
   completed?: any;
@@ -39,6 +40,7 @@ const Cardstyle4 = ({
   id,
   title,
   image,
+  status,
   countnumber,
   price,
   onPress,
@@ -121,7 +123,7 @@ const Cardstyle4 = ({
         <View style={[styles.datastatus]}>
           <Image
             style={{ height: undefined, width: "100%", aspectRatio: 1 / 1 }}
-            source={image}
+            source={status}
           />
         </View>
       </View>
@@ -160,12 +162,13 @@ const styles = StyleSheet.create({
     height: 35,
     width: "100%",
     backgroundColor: COLORS.primary,
-    borderRadius: 200,
+    borderRadius: 10,
     aspectRatio: 1 / 1,
     alignItems: "center",
     justifyContent: "center",
     right: 18,
     overflow: "hidden",
+    top: 2,
   },
   datastatus: {
     height: 20,
@@ -177,6 +180,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     right: 7,
     overflow: "hidden",
+    top: 2,
   },
   datatextcontainer: {
     width: "70%",
