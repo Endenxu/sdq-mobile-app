@@ -14,6 +14,7 @@ import { COLORS, FONTS } from "../../constants/theme";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigation/RootStackParamList";
 import Header from "../../layout/Header";
+import CustomFAB from "../../components/Button/CustomFAB";
 
 const profileData = [
   {
@@ -63,7 +64,7 @@ const Profile = ({ navigation }: ProfileScreenProps) => {
           <Text
             style={{ ...FONTS.fontSemiBold, fontSize: 28, color: colors.title }}
           >
-            William Smith
+            Khaled Smith
           </Text>
           <Text
             style={{
@@ -127,6 +128,14 @@ const Profile = ({ navigation }: ProfileScreenProps) => {
           </View>
         </View>
       </ScrollView>
+      <View
+        style={{
+          borderTopLeftRadius: 15,
+          borderTopRightRadius: 15,
+        }}
+      >
+        <CustomFAB onPress={() => navigation.navigate("UploadFile")} />
+      </View>
     </View>
   );
 };

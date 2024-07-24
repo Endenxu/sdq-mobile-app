@@ -14,6 +14,7 @@ import { useTheme } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromwishList } from "../../redux/reducer/wishListReducer";
 import LikeBtn from "../LikeBtn";
+import { Dropdown } from "react-native-element-dropdown";
 
 type Props = {
   id: string;
@@ -65,7 +66,10 @@ const Cardstyle4 = ({
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={onPress}
-      style={[styles.datacontainer]}
+      style={[
+        styles.datacontainer,
+        { backgroundColor: theme.dark ? colors.background : colors.card },
+      ]}
     >
       <View
         style={{
@@ -80,7 +84,7 @@ const Cardstyle4 = ({
           />
         </View>
         <View style={{ right: 15 }}>
-          <Text style={{ ...FONTS.fontSm }}>#{id}</Text>
+          <Text style={{ ...FONTS.fontSm, color: colors.title }}>#{id}</Text>
         </View>
       </View>
 

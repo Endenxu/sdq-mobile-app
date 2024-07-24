@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/reducer/cartReducer";
 import { removeFromwishList } from "../../redux/reducer/wishListReducer";
 import Cardstyle2 from "../../components/Card/Cardstyle2";
+import CustomFAB from "../../components/Button/CustomFAB";
 
 const cardData = [
   {
@@ -145,6 +146,14 @@ const Wishlist = ({ navigation }: WishlistScreenProps) => {
           </View>
         </View>
       </ScrollView>
+      <View
+        style={{
+          borderTopLeftRadius: 15,
+          borderTopRightRadius: 15,
+        }}
+      >
+        <CustomFAB onPress={() => navigation.navigate("UploadFile")} />
+      </View>
     </View>
   );
 };

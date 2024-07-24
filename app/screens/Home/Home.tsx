@@ -13,7 +13,7 @@ import { useTheme } from "@react-navigation/native";
 import { GlobalStyleSheet } from "../../constants/StyleSheet";
 import { IMAGES } from "../../constants/Images";
 import { COLORS, FONTS } from "../../constants/theme";
-import { Feather } from "@expo/vector-icons";
+import { Feather, Entypo } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigation/RootStackParamList";
@@ -23,6 +23,8 @@ import { openDrawer } from "../../redux/actions/drawerAction";
 import Button from "../../components/Button/Button";
 import LoginModal from "../../components/Modal/LoginModal";
 import SuccessModal from "../../components/Modal/SuccessModal";
+import CustomFAB from "../../components/Button/CustomFAB";
+import RegisterModal from "../../components/Modal/RegisterModal";
 
 const AllData = [
   {
@@ -257,8 +259,15 @@ export const Home = ({ navigation }: HomeScreenProps) => {
                       backgroundColor: "rgba(0,0,0,.3)",
                     }}
                   />
+                  {/*}
                   {activeSheet === "login" ? (
                     <LoginModal close={setModalVisible} />
+                  ) : (
+                    <SuccessModal />
+                  )}
+                  */}
+                  {activeSheet === "login" ? (
+                    <RegisterModal close={setModalVisible} />
                   ) : (
                     <SuccessModal />
                   )}
@@ -314,6 +323,42 @@ export const Home = ({ navigation }: HomeScreenProps) => {
             );
           })}
         </View>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            flexDirection: "row",
+            gap: 20,
+          }}
+        >
+          <TouchableOpacity>
+            <Entypo
+              name="controller-fast-backward"
+              size={24}
+              color={colors.title3}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Entypo
+              name="controller-jump-to-start"
+              size={24}
+              color={colors.title3}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Entypo name="controller-record" size={24} color={colors.title3} />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Entypo name="controller-next" size={24} color={colors.title3} />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Entypo
+              name="controller-fast-forward"
+              size={24}
+              color={colors.title3}
+            />
+          </TouchableOpacity>
+        </View>
       </ScrollView>
       <View
         style={{
@@ -321,11 +366,7 @@ export const Home = ({ navigation }: HomeScreenProps) => {
           borderTopRightRadius: 15,
         }}
       >
-        <Button
-          title={"Upload File"}
-          onPress={() => navigation.navigate("UploadFile")}
-          style={{ borderRadius: 52, marginLeft: 15, marginRight: 15 }}
-        />
+        <CustomFAB onPress={() => navigation.navigate("UploadFile")} />
       </View>
     </View>
   );

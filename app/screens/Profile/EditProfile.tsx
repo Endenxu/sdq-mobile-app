@@ -112,7 +112,7 @@ const EditProfile = () => {
                   { fontSize: 19, color: colors.title },
                 ]}
               >
-                James Smith
+                Khaled Smith
               </Text>
               <Text
                 style={[
@@ -125,7 +125,7 @@ const EditProfile = () => {
             </View>
           </View>
         </View>
-        <View
+        {/*<View
           style={[
             GlobalStyleSheet.container,
             {
@@ -228,7 +228,7 @@ const EditProfile = () => {
               }
             />
           </View>
-        </View>
+        </View>*/}
       </ScrollView>
       <View style={[GlobalStyleSheet.container]}>
         <Button

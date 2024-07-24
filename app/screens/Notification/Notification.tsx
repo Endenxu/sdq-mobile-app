@@ -17,48 +17,48 @@ import { COLORS, FONTS, SIZES } from "../../constants/theme";
 
 const SwipeData = [
   {
-    image: IMAGES.small1,
-    title: "New Arrivals Alert!",
+    image: IMAGES.blankperson,
+    title: "File for Authentication",
     date: "15 July 2024",
   },
   {
-    image: IMAGES.small2,
-    title: "Flash Sale Announcement",
+    image: IMAGES.blankperson,
+    title: "File for Authentication",
     date: "15 July 2024",
   },
   {
-    image: IMAGES.brand5,
-    title: "Exclusive Discounts Inside",
+    image: IMAGES.blankperson,
+    title: "File for Authentication",
     date: "15 July 2024",
   },
   {
-    image: IMAGES.small4,
-    title: "Limited Stock - Act Fast!",
+    image: IMAGES.blankperson,
+    title: "File for Authentication",
     date: "15 July 2024",
   },
   {
-    image: IMAGES.small5,
-    title: "Get Ready to Shop",
+    image: IMAGES.blankperson,
+    title: "File for Authentication",
     date: "15 July 2024",
   },
   {
-    image: IMAGES.brand2,
-    title: "Don't Miss Out on Savings",
+    image: IMAGES.blankperson,
+    title: "File for Authentication",
     date: "15 July 2024",
   },
   {
-    image: IMAGES.small7,
-    title: "Flash Sale Announcement",
+    image: IMAGES.blankperson,
+    title: "File for Authentication",
     date: "15 July 2024",
   },
   {
-    image: IMAGES.brand3,
-    title: "Don't Miss Out on Savings",
+    image: IMAGES.blankperson,
+    title: "File for Authentication",
     date: "15 July 2024",
   },
   {
-    image: IMAGES.brand1,
-    title: "Get Ready to Shop",
+    image: IMAGES.blankperson,
+    title: "File for Authentication",
     date: "15 July 2024",
   },
 ];
