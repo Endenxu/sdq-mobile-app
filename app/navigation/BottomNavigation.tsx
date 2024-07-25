@@ -8,6 +8,7 @@ import ProfileScreen from "../screens/Profile/Profile";
 import BottomMenu from "../layout/BottomMenu";
 import { useTheme } from "@react-navigation/native";
 import QrCodeScanner from "../screens/Components/QrCodeScanner";
+import NotAvailableYet from "../screens/Update/Update";
 
 const Tab = createBottomTabNavigator<BottomTabParamList>();
 

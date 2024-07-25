@@ -30,58 +30,112 @@ const AllData = [
   {
     id: "1234100",
     image: IMAGES.blankperson,
-    name: "Khaled",
+    name: "Khaled Smith",
     title: "Bank Document",
     status: IMAGES.new,
+    issuedfor: "Hugh Tecson",
+    filedescription: "Bank document for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/25/2024 12:31 PM",
   },
   {
     id: "1234200",
     image: IMAGES.blankperson,
-    name: "Hugh",
+    name: "Hugh Tecson",
     title: "QR",
     status: IMAGES.new,
+    issuedfor: "Hugh Tecson",
+    filedescription: "QR for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/24/2024 01:42 PM",
   },
   {
     id: "1234300",
     image: IMAGES.blankperson,
-    name: "John",
+    name: "John Doe",
     title: "Code",
     status: IMAGES.new,
+    issuedfor: "Hugh",
+    filedescription: "Code Review for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/23/2024 02:43 PM",
   },
   {
     id: "1234400",
     image: IMAGES.blankperson,
-    name: "Khaled",
+    name: "Khaled Smith",
     title: "Bank Documents",
     status: IMAGES.authorized,
+    issuedfor: "Hugh Tecson",
+    filedescription: "Bank document for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/22/2024 03:46 PM",
   },
   {
     id: "1234500",
     image: IMAGES.blankperson,
-    name: "Khaled",
+    name: "Khaled Smith",
     title: "Proposals",
     status: IMAGES.authorized,
+    issuedfor: "Hugh Tecson",
+    filedescription: "Proposal for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/21/2024 12:58 PM",
   },
   {
     id: "1234600",
     image: IMAGES.blankperson,
-    name: "Khaled",
-    title: "thesis",
+    name: "Khaled Smith",
+    title: "Thesis",
     status: IMAGES.authorized,
+    issuedfor: "Hugh Tecson",
+    filedescription: "Documents for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/20/2024 03:26 PM",
   },
   {
     id: "1234700",
     image: IMAGES.blankperson,
-    name: "Khaled",
+    name: "Khaled Smith",
     title: "Important Documents",
     status: IMAGES.authorized,
+    issuedfor: "Hugh Tecson",
+    filedescription: "Urgent Document for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/19/2024 12:30 PM",
   },
   {
     id: "1234800",
     image: IMAGES.blankperson,
-    name: "Khaled",
+    name: "Khaled Smith",
     title: "Proposals",
     status: IMAGES.authorized,
+    issuedfor: "Hugh Tecson",
+    filedescription: "Proposal document for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/18/2024 04:25 PM",
+  },
+  {
+    id: "1234900",
+    image: IMAGES.blankperson,
+    name: "John Doe",
+    title: "Proposals",
+    status: IMAGES.authorized,
+    issuedfor: "Hugh Tecson",
+    filedescription: "Proposal document for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/17/2024 05:48 PM",
+  },
+  {
+    id: "1234990",
+    image: IMAGES.blankperson,
+    name: "John Doe",
+    title: "Proposals",
+    status: IMAGES.authorized,
+    issuedfor: "Hugh Tecson",
+    filedescription: "Bank document for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/16/2024 12:01 PM",
   },
 ];
 
@@ -104,9 +158,6 @@ export const Home = ({ navigation }: HomeScreenProps) => {
   const theme = useTheme();
   const { colors }: { colors: any } = theme;
 
-  const addItemToWishList = (data: any) => {
-    dispatch(addTowishList(data));
-  };
   // Modal use effect
   const [activeSheet, setActiveSheet] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
@@ -316,8 +367,9 @@ export const Home = ({ navigation }: HomeScreenProps) => {
                   status={data.status}
                   countnumber={data.countnumber}
                   title={data.title}
-                  onPress={() => navigation.navigate("ProductsDetails")}
-                  onPress5={() => addItemToWishList(data)}
+                  onPress={() =>
+                    navigation.navigate("ProductsDetails", { data })
+                  }
                 />
               </View>
             );

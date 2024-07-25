@@ -58,6 +58,7 @@ import Tabs from "../screens/Components/Tabs";
 import Tables from "../screens/Components/Tables";
 import Toggles from "../screens/Components/Toggles";
 import UploadFile from "../screens/Upload/UploadFile";
+import NotAvailableYet from "../screens/Update/Update";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -107,6 +108,7 @@ const StackNavigator = () => {
         <Stack.Screen name="Singlechat" component={Singlechat} />
         <Stack.Screen name="Call" component={Call} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
+        <Stack.Screen name="NotAvailableYet" component={NotAvailableYet} />
 
         <Stack.Screen name="Components" component={Components} />
         <Stack.Screen name="Accordion" component={AccordionScreen} />

@@ -115,172 +115,194 @@ const UploadFile = ({ navigation }: UploadFileScreenProps) => {
                 defaultValue="Please, Enter File Description"
               />
             </View>
-            <View style={[GlobalStyleSheet.container, { padding: 0 }]}>
-              <Text
-                style={[
-                  styles.title3,
-                  { color: "#000000", marginTop: 20, fontSize: 18 },
-                ]}
-              >
-                Categorization info:
-              </Text>
-              <Text
-                style={[styles.title3, { color: "#8A8A8A", marginTop: 10 }]}
-              >
-                Save To:
-              </Text>
-            </View>
-            <View style={{ marginBottom: 0, marginTop: 0 }}>
-              <DropdownComponent
-                data={data}
-                label="Select an option"
-                onSelect={handleSelect}
-                placeholder="Select..."
-              />
-            </View>
-            <View style={[GlobalStyleSheet.container, { padding: 0 }]}>
-              <Text
-                style={[styles.title3, { color: "#8A8A8A", marginTop: 10 }]}
-              >
-                File Type:
-              </Text>
-            </View>
-            <View style={{ marginBottom: 0, marginTop: 0 }}>
-              <DropdownComponent
-                data={data}
-                label="Select an option"
-                onSelect={handleSelect}
-                placeholder="Select..."
-              />
-            </View>
-            <View style={[GlobalStyleSheet.container, { padding: 0 }]}>
-              <Text
-                style={[styles.title3, { color: "#8A8A8A", marginTop: 10 }]}
-              >
-                QR Template:
-              </Text>
-            </View>
-            <View style={{ marginBottom: 0, marginTop: 0 }}>
-              <DropdownComponent
-                data={data}
-                label="Select an option"
-                onSelect={handleSelect}
-                placeholder="Select..."
-              />
-            </View>
-            <View style={[GlobalStyleSheet.container, { padding: 0 }]}>
-              <Text
-                style={[styles.title3, { color: "#8A8A8A", marginTop: 10 }]}
-              >
-                Owner Department
-              </Text>
-            </View>
-            <View style={{ marginBottom: 0, marginTop: 0 }}>
-              <DropdownComponent
-                data={data}
-                label="Select an option"
-                onSelect={handleSelect}
-                placeholder="Select..."
-              />
-            </View>
-            <View style={[GlobalStyleSheet.container, { padding: 0 }]}>
-              <Text
-                style={[styles.title3, { color: "#8A8A8A", marginTop: 10 }]}
-              >
-                Owner Branch:
-              </Text>
-            </View>
-            <View style={{ marginBottom: 0, marginTop: 0 }}>
-              <DropdownComponent
-                data={data}
-                label="Select an option"
-                onSelect={handleSelect}
-                placeholder="Select..."
-              />
-            </View>
-            <View style={[GlobalStyleSheet.container, { padding: 0 }]}>
-              <Text
-                style={[styles.title3, { color: "#8A8A8A", marginTop: 10 }]}
-              >
-                Tags:
-              </Text>
-            </View>
-            <View style={{ marginBottom: 0, marginTop: 0 }}>
-              <DropdownComponent
-                data={data}
-                label="Select an option"
-                onSelect={handleSelect}
-                placeholder="Select..."
-              />
-            </View>
-            <View style={[GlobalStyleSheet.container, { padding: 0 }]}>
-              <Text
-                style={[styles.title3, { color: "#8A8A8A", marginTop: 10 }]}
-              >
-                Auth Info
-              </Text>
-            </View>
-            <View style={{ marginBottom: 0, marginTop: 0 }}>
-              <Input
-                onFocus={() => setisFocused(true)}
-                onBlur={() => setisFocused(false)}
-                onChangeText={(value) => console.log(value)}
-                isFocused={isFocused}
-                inputBorder
-                defaultValue=""
-              />
-            </View>
-            <View style={[GlobalStyleSheet.container, { padding: 0 }]}>
-              <Text
-                style={[styles.title3, { color: "#8A8A8A", marginTop: 10 }]}
-              >
-                Auth Required By:
-              </Text>
-            </View>
-            <View style={{ marginBottom: 0, marginTop: 0 }}>
-              <DropdownComponent
-                data={data}
-                label="Select an option"
-                onSelect={handleSelect}
-                placeholder="Select..."
-              />
-            </View>
-            <View style={[GlobalStyleSheet.container, { padding: 0 }]}>
-              <Text
-                style={[
-                  styles.title3,
-                  { color: "#8A8A8A", marginTop: 10, marginBottom: 10 },
-                ]}
-              >
-                Access Level:
-              </Text>
-            </View>
-            <View
-              style={{
-                marginBottom: 0,
-                marginTop: 0,
-                justifyContent: "space-between",
-                flexDirection: "row",
-                flex: 1,
-                width: "100%",
-              }}
-            >
-              <ToggleSwitch
-                isEnabled={isSwitchOneEnabled}
-                onToggle={toggleSwitchOne}
-              />
 
-              <Text style={{ flex: 1, justifyContent: "center", fontSize: 10 }}>
-                Any one in the organization?
-              </Text>
-              <ToggleSwitch
-                isEnabled={isSwitchTwoEnabled}
-                onToggle={toggleSwitchTwo}
-              />
+            <View style={[GlobalStyleSheet.container, { padding: 0 }]}>
+              <View>
+                <Text
+                  style={[
+                    styles.title3,
+                    { color: "#8A8A8A", marginTop: 20, fontSize: 14 },
+                  ]}
+                >
+                  Categorization info:
+                </Text>
+              </View>
 
-              <Text style={{ flex: 1, fontSize: 10 }}>
-                Anyone with the link
-              </Text>
+              <View style={[styles.dropdownpair]}>
+                <View>
+                  <Text
+                    style={[styles.title3, { color: "#8A8A8A", marginTop: 10 }]}
+                  >
+                    Save To:
+                  </Text>
+                  <View style={{ marginBottom: 0, marginTop: 0 }}>
+                    <DropdownComponent
+                      data={data}
+                      label="Select an option"
+                      onSelect={handleSelect}
+                      placeholder="Select..."
+                    />
+                  </View>
+                </View>
+
+                <View>
+                  <Text
+                    style={[styles.title3, { color: "#8A8A8A", marginTop: 10 }]}
+                  >
+                    File Type:
+                  </Text>
+                  <View style={{ marginBottom: 0, marginTop: 0 }}>
+                    <DropdownComponent
+                      data={data}
+                      label="Select an option"
+                      onSelect={handleSelect}
+                      placeholder="Select..."
+                    />
+                  </View>
+                </View>
+              </View>
+
+              <View style={[styles.dropdownpair]}>
+                <View>
+                  <Text
+                    style={[styles.title3, { color: "#8A8A8A", marginTop: 10 }]}
+                  >
+                    QR Template:
+                  </Text>
+                  <View style={{ marginBottom: 0, marginTop: 0 }}>
+                    <DropdownComponent
+                      data={data}
+                      label="Select an option"
+                      onSelect={handleSelect}
+                      placeholder="Select..."
+                    />
+                  </View>
+                </View>
+
+                <View>
+                  <Text
+                    style={[styles.title3, { color: "#8A8A8A", marginTop: 10 }]}
+                  >
+                    Owner Dept:
+                  </Text>
+                  <View style={{ marginBottom: 0, marginTop: 0 }}>
+                    <DropdownComponent
+                      data={data}
+                      label="Select an option"
+                      onSelect={handleSelect}
+                      placeholder="Select..."
+                    />
+                  </View>
+                </View>
+              </View>
+
+              <View style={[styles.dropdownpair]}>
+                <View>
+                  <Text
+                    style={[styles.title3, { color: "#8A8A8A", marginTop: 10 }]}
+                  >
+                    Owner Branch:
+                  </Text>
+                  <View style={{ marginBottom: 0, marginTop: 0 }}>
+                    <DropdownComponent
+                      data={data}
+                      label="Select an option"
+                      onSelect={handleSelect}
+                      placeholder="Select..."
+                    />
+                  </View>
+                </View>
+
+                <View>
+                  <Text
+                    style={[styles.title3, { color: "#8A8A8A", marginTop: 10 }]}
+                  >
+                    Tags:
+                  </Text>
+                  <View style={{ marginBottom: 0, marginTop: 0 }}>
+                    <DropdownComponent
+                      data={data}
+                      label="Select an option"
+                      onSelect={handleSelect}
+                      placeholder="Select..."
+                    />
+                  </View>
+                </View>
+              </View>
+
+              <View style={[GlobalStyleSheet.container, { padding: 0 }]}>
+                <Text
+                  style={[styles.title3, { color: "#8A8A8A", marginTop: 10 }]}
+                >
+                  Auth Info / Issued For
+                </Text>
+              </View>
+              <View style={{ marginBottom: 0, marginTop: 0 }}>
+                <Input
+                  onFocus={() => setisFocused(true)}
+                  onBlur={() => setisFocused(false)}
+                  onChangeText={(value) => console.log(value)}
+                  isFocused={isFocused}
+                  inputBorder
+                  defaultValue="Type Name Here"
+                />
+              </View>
+
+              <View style={[GlobalStyleSheet.container, { padding: 0 }]}>
+                <Text
+                  style={[styles.title3, { color: "#8A8A8A", marginTop: 10 }]}
+                >
+                  Auth Required By:
+                </Text>
+              </View>
+              <View style={{ marginBottom: 0, marginTop: 0 }}>
+                <DropdownComponent
+                  data={data}
+                  label="Select an option"
+                  onSelect={handleSelect}
+                  placeholder="Select..."
+                />
+              </View>
+
+              <View style={[GlobalStyleSheet.container, { padding: 0 }]}>
+                <Text
+                  style={[
+                    styles.title3,
+                    { color: "#8A8A8A", marginTop: 10, marginBottom: 10 },
+                  ]}
+                >
+                  Access Level:
+                </Text>
+              </View>
+              <View
+                style={{
+                  marginBottom: 0,
+                  marginTop: 0,
+                  justifyContent: "space-between",
+                  flexDirection: "row",
+                  flex: 1,
+                  width: "100%",
+                }}
+              >
+                <ToggleSwitch
+                  isEnabled={isSwitchOneEnabled}
+                  onToggle={toggleSwitchOne}
+                />
+
+                <Text
+                  style={{ flex: 1, justifyContent: "center", fontSize: 10 }}
+                >
+                  Any one in the organization?
+                </Text>
+                <ToggleSwitch
+                  isEnabled={isSwitchTwoEnabled}
+                  onToggle={toggleSwitchTwo}
+                />
+
+                <Text style={{ flex: 1, fontSize: 10 }}>
+                  Anyone with the link
+                </Text>
+              </View>
             </View>
           </View>
         </View>
@@ -333,6 +355,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#F6F6F6",
     alignItems: "center",
     justifyContent: "center",
+  },
+  dropdownpair: {
+    flex: 1,
+    justifyContent: "center",
+    flexDirection: "row",
+    gap: 15,
   },
 });
 

@@ -37,7 +37,7 @@ export type RootStackParamList = {
   Category: undefined;
   Notifications: undefined;
   Questions: undefined;
-  ProductsDetails: undefined;
+  ProductsDetails: { data: any };
   Writereview: undefined;
   Profile: undefined;
   Wishlist: undefined;
@@ -75,4 +75,5 @@ export type RootStackParamList = {
   TabStyle3: undefined;
   TabStyle4: undefined;
   UploadFile: undefined;
+  NotAvailableYet: undefined;
 };

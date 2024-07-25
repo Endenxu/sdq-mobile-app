@@ -1,5 +1,12 @@
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+} from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { COLORS, FONTS, SIZES } from "../../constants/theme";
@@ -10,6 +17,21 @@ import DropdownComponent from "../Input/dropdown";
 
 type Props = {
   close: any;
+};
+
+const data = [
+  { label: "Item 1", value: "1" },
+  { label: "Item 2", value: "2" },
+  { label: "Item 3", value: "3" },
+  { label: "Item 4", value: "4" },
+  { label: "Item 5", value: "5" },
+  { label: "Item 6", value: "6" },
+  { label: "Item 7", value: "7" },
+  { label: "Item 8", value: "8" },
+];
+
+const handleSelect = (value: string) => {
+  console.log("Selected value:", value);
 };
 
 const RegisterModal = ({ close }: Props) => {
@@ -23,6 +45,7 @@ const RegisterModal = ({ close }: Props) => {
         maxWidth: 330,
         width: "100%",
         borderRadius: SIZES.radius,
+        height: 430,
       }}
     >
       <View
@@ -40,13 +63,15 @@ const RegisterModal = ({ close }: Props) => {
             flexDirection: "row",
             alignItems: "center",
             paddingBottom: 15,
-            marginBottom: 20,
+            marginBottom: 10,
             borderBottomWidth: 1,
             borderBottomColor: colors.border,
           }}
         >
-          <Text style={{ flex: 1, ...FONTS.h6, color: colors.title }}>
-            Register
+          <Text
+            style={{ flex: 1, ...FONTS.h6, fontSize: 20, color: colors.title }}
+          >
+            Filter Files
           </Text>
           <TouchableOpacity
             onPress={() => close(false)}
@@ -62,43 +87,107 @@ const RegisterModal = ({ close }: Props) => {
             <Feather size={20} color={colors.title} name="x" />
           </TouchableOpacity>
         </View>
-        <ScrollView style={{ maxHeight: 300 }}>
-          <View style={{ marginBottom: 15 }}>
-            <Text
-              style={{ ...FONTS.font, color: colors.title, marginBottom: 4 }}
-            >
-              Username
-            </Text>
-            <Input
-              //value={''}
-              placeholder={"Type Username Here"}
-              onChangeText={(value) => console.log(value)}
-            />
+        <ScrollView style={{ maxHeight: 300, marginBottom: 25 }}>
+          <View style={[styles.dropdownpair]}>
+            <View>
+              <Text
+                style={[styles.title3, { color: "#8A8A8A", marginTop: 10 }]}
+              >
+                Department:
+              </Text>
+              <View style={{ marginBottom: 0, marginTop: 0 }}>
+                <DropdownComponent
+                  data={data}
+                  label="Select an option"
+                  onSelect={handleSelect}
+                  placeholder="Select..."
+                />
+              </View>
+            </View>
+
+            <View>
+              <Text
+                style={[styles.title3, { color: "#8A8A8A", marginTop: 10 }]}
+              >
+                File Type:
+              </Text>
+              <View style={{ marginBottom: 0, marginTop: 0 }}>
+                <DropdownComponent
+                  data={data}
+                  label="Select an option"
+                  onSelect={handleSelect}
+                  placeholder="Select..."
+                />
+              </View>
+            </View>
           </View>
-          <View style={{ marginBottom: 15 }}>
-            <Text
-              style={{ ...FONTS.font, color: colors.title, marginBottom: 4 }}
-            >
-              Email
-            </Text>
-            <Input
-              //value={''}
-              placeholder={"Type Email Here"}
-              onChangeText={(value) => console.log(value)}
-            />
+
+          <View style={[styles.dropdownpair]}>
+            <View>
+              <Text
+                style={[styles.title3, { color: "#8A8A8A", marginTop: 10 }]}
+              >
+                Folders:
+              </Text>
+              <View style={{ marginBottom: 0, marginTop: 0 }}>
+                <DropdownComponent
+                  data={data}
+                  label="Select an option"
+                  onSelect={handleSelect}
+                  placeholder="Select..."
+                />
+              </View>
+            </View>
+
+            <View>
+              <Text
+                style={[styles.title3, { color: "#8A8A8A", marginTop: 10 }]}
+              >
+                Owner Dept:
+              </Text>
+              <View style={{ marginBottom: 0, marginTop: 0 }}>
+                <DropdownComponent
+                  data={data}
+                  label="Select an option"
+                  onSelect={handleSelect}
+                  placeholder="Select..."
+                />
+              </View>
+            </View>
           </View>
-          <View style={{ marginBottom: 25 }}>
-            <Text
-              style={{ ...FONTS.font, color: colors.title, marginBottom: 4 }}
-            >
-              Password
-            </Text>
-            <Input
-              //value={''}
-              type="password"
-              placeholder={"Type Password Here"}
-              onChangeText={(value) => console.log(value)}
-            />
+
+          <View style={[styles.dropdownpair]}>
+            <View>
+              <Text
+                style={[styles.title3, { color: "#8A8A8A", marginTop: 10 }]}
+              >
+                Owner Branch:
+              </Text>
+              <View style={{ marginBottom: 0, marginTop: 0 }}>
+                <DropdownComponent
+                  data={data}
+                  label="Select an option"
+                  onSelect={handleSelect}
+                  placeholder="Select..."
+                />
+              </View>
+            </View>
+
+            <View>
+              <Text
+                style={[styles.title3, { color: "#8A8A8A", marginTop: 10 }]}
+              >
+                Status:
+              </Text>
+              <View style={{ marginBottom: 0, marginTop: 0 }}>
+                <DropdownComponent
+                  data={data}
+                  label="Select an option"
+                  onSelect={handleSelect}
+                  placeholder="Select..."
+                />
+              </View>
+            </View>
           </View>
         </ScrollView>
         <Button
@@ -106,10 +195,43 @@ const RegisterModal = ({ close }: Props) => {
           title={"Apply Filter"}
           text={theme.dark ? COLORS.title : COLORS.card}
           color={colors.title}
+          style={{}}
         />
       </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  title1: {
+    ...FONTS.fontSemiBold,
+    fontSize: 24,
+    color: COLORS.title,
+    marginBottom: 5,
+  },
+  title2: {
+    ...FONTS.fontRegular,
+    fontSize: 14,
+    color: COLORS.title,
+  },
+  title3: {
+    ...FONTS.fontMedium,
+    fontSize: 14,
+    color: "#8A8A8A",
+  },
+  title4: {
+    ...FONTS.fontRegular,
+    fontSize: 14,
+    color: COLORS.primary,
+    textDecorationLine: "underline",
+    textDecorationColor: "#8ABE12",
+  },
+  dropdownpair: {
+    flex: 1,
+    justifyContent: "center",
+    flexDirection: "row",
+    gap: 5,
+  },
+});
 
 export default RegisterModal;

@@ -58,6 +58,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
     padding: 0,
+    borderRadius: 8,
+    width: 140,
   },
   label: {
     marginBottom: 8,
@@ -65,7 +67,8 @@ const styles = StyleSheet.create({
     color: "black",
   },
   dropdown: {
-    height: 50,
+    height: 40,
+    width: 140,
     borderColor: "gray",
     borderWidth: 1,
     borderRadius: 8,
