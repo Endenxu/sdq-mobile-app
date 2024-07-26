@@ -14,60 +14,53 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import SwipeBox from "../../components/SwipeBox";
 import { GlobalStyleSheet } from "../../constants/StyleSheet";
 import { COLORS, FONTS, SIZES } from "../../constants/theme";
+import { StackScreenProps } from "@react-navigation/stack";
+import { RootStackParamList } from "../../navigation/RootStackParamList";
 
 const SwipeData = [
   {
+    id: "1234100",
     image: IMAGES.blankperson,
-    title: "File for Authentication",
-    date: "15 July 2024",
+    name: "Khaled Smith",
+    title: "Bank Document",
+    status: IMAGES.new,
+    issuedfor: "Hugh Tecson",
+    filedescription: "Bank document for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/25/2024 12:31 PM",
   },
   {
+    id: "1234200",
     image: IMAGES.blankperson,
-    title: "File for Authentication",
-    date: "15 July 2024",
+    name: "Hugh Tecson",
+    title: "QR",
+    status: IMAGES.new,
+    issuedfor: "Hugh Tecson",
+    filedescription: "QR for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/24/2024 01:42 PM",
   },
   {
+    id: "1234300",
     image: IMAGES.blankperson,
-    title: "File for Authentication",
-    date: "15 July 2024",
-  },
-  {
-    image: IMAGES.blankperson,
-    title: "File for Authentication",
-    date: "15 July 2024",
-  },
-  {
-    image: IMAGES.blankperson,
-    title: "File for Authentication",
-    date: "15 July 2024",
-  },
-  {
-    image: IMAGES.blankperson,
-    title: "File for Authentication",
-    date: "15 July 2024",
-  },
-  {
-    image: IMAGES.blankperson,
-    title: "File for Authentication",
-    date: "15 July 2024",
-  },
-  {
-    image: IMAGES.blankperson,
-    title: "File for Authentication",
-    date: "15 July 2024",
-  },
-  {
-    image: IMAGES.blankperson,
-    title: "File for Authentication",
-    date: "15 July 2024",
+    name: "John Doe",
+    title: "Code",
+    status: IMAGES.new,
+    issuedfor: "Hugh Tecson",
+    filedescription: "Code Review for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/23/2024 02:43 PM",
   },
 ];
 
-const Notification = () => {
+type NotificationScreenProps = StackScreenProps<
+  RootStackParamList,
+  "Notification"
+>;
+
+const Notification = ({ route, navigation }: NotificationScreenProps) => {
   const theme = useTheme();
   const { colors }: { colors: any } = theme;
-
-  const navigation = useNavigation<any>();
 
   const [lists, setLists] = useState<any>(SwipeData);
 
@@ -76,6 +69,10 @@ const Notification = () => {
     const arr = [...lists];
     arr.splice(index, 1);
     setLists(arr);
+  };
+
+  const handlePress = (data: any) => {
+    navigation.navigate("NotificationDetails", { data });
   };
 
   return (
@@ -100,6 +97,7 @@ const Notification = () => {
                     data={data}
                     colors={colors}
                     handleDelete={() => deleteItem(index)}
+                    onPress={() => handlePress(data)}
                   />
                 </View>
               );

@@ -290,7 +290,12 @@ const UploadFile = ({ navigation }: UploadFileScreenProps) => {
                 />
 
                 <Text
-                  style={{ flex: 1, justifyContent: "center", fontSize: 10 }}
+                  style={{
+                    flex: 1,
+                    justifyContent: "center",
+                    fontSize: 10,
+                    color: colors.title,
+                  }}
                 >
                   Any one in the organization?
                 </Text>
@@ -299,7 +304,7 @@ const UploadFile = ({ navigation }: UploadFileScreenProps) => {
                   onToggle={toggleSwitchTwo}
                 />
 
-                <Text style={{ flex: 1, fontSize: 10 }}>
+                <Text style={{ flex: 1, fontSize: 10, color: colors.title }}>
                   Anyone with the link
                 </Text>
               </View>

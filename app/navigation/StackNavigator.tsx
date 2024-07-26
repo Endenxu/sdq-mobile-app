@@ -59,6 +59,7 @@ import Tables from "../screens/Components/Tables";
 import Toggles from "../screens/Components/Toggles";
 import UploadFile from "../screens/Upload/UploadFile";
 import NotAvailableYet from "../screens/Update/Update";
+import NotificationDetails from "../screens/Notification/NotificationDetails";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -72,6 +73,21 @@ const StackNavigator = () => {
         screenOptions={{
           headerShown: false,
           cardStyle: { backgroundColor: "transparent" },
+          gestureEnabled: true,
+          /*transitionSpec: {
+            open: {
+              animation: "timing",
+              config: {
+                duration: 200,
+              },
+            },
+            close: {
+              animation: "timing",
+              config: {
+                duration: 200,
+              },
+            },
+          },*/
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}
       >
@@ -109,6 +125,10 @@ const StackNavigator = () => {
         <Stack.Screen name="Call" component={Call} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
         <Stack.Screen name="NotAvailableYet" component={NotAvailableYet} />
+        <Stack.Screen
+          name="NotificationDetails"
+          component={NotificationDetails}
+        />
 
         <Stack.Screen name="Components" component={Components} />
         <Stack.Screen name="Accordion" component={AccordionScreen} />

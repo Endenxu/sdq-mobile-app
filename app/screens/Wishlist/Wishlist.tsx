@@ -14,43 +14,7 @@ import { removeFromwishList } from "../../redux/reducer/wishListReducer";
 import Cardstyle2 from "../../components/Card/Cardstyle2";
 import CustomFAB from "../../components/Button/CustomFAB";
 
-const cardData = [
-  {
-    id: "0",
-    image: IMAGES.item1,
-    title: "Hot Creamy Cappuccino Latte Ombe",
-    price: "$12.6",
-    brand: "Coffee",
-  },
-  {
-    id: "1",
-    image: IMAGES.item2,
-    title: "Hot Cappuccino Latte with Mocha",
-    price: "$13.6",
-    brand: "Coffee",
-  },
-  {
-    id: "2",
-    image: IMAGES.item3,
-    title: "Sweet Lemon Indonesian Tea",
-    price: "$51.6",
-    brand: "Tea, Lemon",
-  },
-  {
-    id: "3",
-    image: IMAGES.item13,
-    title: "Arabica Latte Ombe Coffee",
-    price: "$51.6",
-    brand: "Coffee",
-  },
-  {
-    id: "4",
-    image: IMAGES.item14,
-    title: "Original Latte Ombe Hot Coffee ",
-    price: "$51.6",
-    brand: "Coffee",
-  },
-];
+//My FIles Screen Tentative
 
 type WishlistScreenProps = StackScreenProps<RootStackParamList, "Wishlist">;
 
@@ -100,7 +64,7 @@ const Wishlist = ({ navigation }: WishlistScreenProps) => {
                     price={data.price}
                     countnumber={data.countnumber}
                     title={data.title}
-                    onPress={() => navigation.navigate("ProductsDetails")}
+                    //onPress={() => navigation.navigate("ProductsDetails")}
                     // onPress2={() => addItemToWishList(data)}
                   />
                 </View>

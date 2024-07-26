@@ -76,4 +76,5 @@ export type RootStackParamList = {
   TabStyle4: undefined;
   UploadFile: undefined;
   NotAvailableYet: undefined;
+  NotificationDetails: { data: any };
 };

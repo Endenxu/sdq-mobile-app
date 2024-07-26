@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Switch, StyleSheet, ViewStyle } from "react-native";
+import { COLORS, FONTS } from "../../constants/theme";
 
 interface ToggleSwitchProps {
   isEnabled: boolean;
@@ -25,7 +26,6 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#ffffff",
     flex: 1,
     bottom: 10,
   } as ViewStyle,

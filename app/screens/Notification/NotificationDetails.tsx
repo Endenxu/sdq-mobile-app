@@ -18,15 +18,17 @@ import Input from "../../components/Input/Input";
 import { IMAGES } from "../../constants/Images";
 import Button from "../../components/Button/Button";
 import Header from "../../layout/Header";
+import CustomFAB from "../../components/Button/CustomFAB";
 
-// Details Screen fron Home
-
-type ProductsDetailsScreenProps = StackScreenProps<
+type NotificationDetailsScreenProps = StackScreenProps<
   RootStackParamList,
-  "ProductsDetails"
+  "NotificationDetails"
 >;
 
-const ProductsDetails = ({ route, navigation }: ProductsDetailsScreenProps) => {
+const NotificationDetails = ({
+  route,
+  navigation,
+}: NotificationDetailsScreenProps) => {
   const theme = useTheme();
 
   const { colors }: { colors: any } = theme;
@@ -38,7 +40,7 @@ const ProductsDetails = ({ route, navigation }: ProductsDetailsScreenProps) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <Header
-        title="Details"
+        title="Notification Details"
         leftIcon={"back"}
         rightIcon4={"home"}
         //titleLeft
@@ -126,19 +128,60 @@ const ProductsDetails = ({ route, navigation }: ProductsDetailsScreenProps) => {
             Notes: {data.filedescription}
           </Text>
         </View>
+        <TouchableOpacity
+          style={[
+            GlobalStyleSheet.container,
+            {
+              backgroundColor: theme.dark
+                ? "rgba(255,255,255,.1)"
+                : colors.card,
+              marginTop: 10,
+              borderRadius: 15,
+              height: 50,
+            },
+          ]}
+        >
+          <Text style={{ flex: 1, left: 80, color: colors.title }}>
+            View the File Here
+          </Text>
+        </TouchableOpacity>
       </ScrollView>
       <View
         style={[
           GlobalStyleSheet.container,
-          { paddingTop: 0, paddingHorizontal: 30 },
+          {
+            paddingTop: 0,
+            paddingHorizontal: 30,
+            flex: 1,
+            justifyContent: "center",
+            flexDirection: "row",
+            gap: 10,
+          },
         ]}
       >
-        <Button
-          title={"Download"}
-          color={COLORS.primary}
-          onPress={() => navigation.navigate("SingIn")}
-          style={{ borderRadius: 52 }}
-        />
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            flexDirection: "row",
+            gap: 10,
+            marginTop: 60,
+          }}
+        >
+          <Button
+            title={"Decline"}
+            color={"#ff2c2c"}
+            //color={#2b1b17}
+            onPress={() => navigation.navigate("SingIn")}
+            style={{ borderRadius: 15, width: 165 }}
+          />
+          <Button
+            title={"Accept"}
+            color={COLORS.primary}
+            onPress={() => navigation.navigate("SingIn")}
+            style={{ borderRadius: 15, width: 150 }}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -206,4 +249,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProductsDetails;
+export default NotificationDetails;

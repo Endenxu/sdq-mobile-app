@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart } from "../../redux/reducer/cartReducer";
 import Cardstyle1 from "../../components/Card/Cardstyle1";
 
+//Not Available Yet Screen For QR Tentative
+
 type NotAvailableYetProps = StackScreenProps<
   RootStackParamList,
   "NotAvailableYet"

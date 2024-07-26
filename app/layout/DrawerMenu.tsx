@@ -195,7 +195,7 @@ const DrawerMenu = () => {
             );
           })}
         </View>
-        <View style={{ paddingHorizontal: 10, paddingTop: 300 }}>
+        <View style={{ paddingHorizontal: 10, paddingTop: 280 }}>
           <ThemeBtn />
         </View>
         <View style={{ paddingVertical: 15, paddingHorizontal: 10 }}>

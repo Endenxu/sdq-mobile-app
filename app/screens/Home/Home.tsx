@@ -55,7 +55,7 @@ const AllData = [
     name: "John Doe",
     title: "Code",
     status: IMAGES.new,
-    issuedfor: "Hugh",
+    issuedfor: "Hugh Tecson",
     filedescription: "Code Review for hugh",
     authorizedby: "Khaled Smith",
     date: "7/23/2024 02:43 PM",
