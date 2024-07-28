@@ -71,6 +71,8 @@ const EditProfile = () => {
               backgroundColor: theme.dark
                 ? "rgba(255,255,255,.1)"
                 : colors.card,
+              elevation: theme.dark ? 0 : 5, // Disable elevation in dark mode
+              shadowOpacity: theme.dark ? 0 : 0.25, // Disable shadow in dark mode
               marginTop: 10,
               borderRadius: 15,
             },
@@ -125,6 +127,35 @@ const EditProfile = () => {
             </View>
           </View>
         </View>
+        <TouchableOpacity
+          style={[
+            GlobalStyleSheet.container,
+            styles.linkContainer,
+            {
+              backgroundColor: theme.dark
+                ? "rgba(255,255,255,.1)"
+                : colors.card,
+              elevation: theme.dark ? 0 : 5, // Disable elevation in dark mode
+              shadowOpacity: theme.dark ? 0 : 0.25, // Disable shadow in dark mode
+            },
+          ]}
+          /*
+          style={[
+            GlobalStyleSheet.container,
+            {
+              backgroundColor: theme.dark
+                ? "rgba(255,255,255,.1)"
+                : colors.card,
+              marginTop: 10,
+              borderRadius: 15,
+            },
+          ]}
+            */
+        >
+          <Text style={[styles.linkText, { color: colors.title }]}>
+            Change Password
+          </Text>
+        </TouchableOpacity>
         {/*<View
           style={[
             GlobalStyleSheet.container,
@@ -305,6 +336,27 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.1,
     shadowRadius: 5,
+  },
+  linkContainer: {
+    borderRadius: 15,
+    height: 60,
+    justifyContent: "center",
+    paddingHorizontal: 20,
+    marginVertical: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    marginTop: 20,
+  },
+  linkText: {
+    flex: 1,
+    textAlign: "center",
+    fontSize: 16,
   },
 });
 

@@ -25,6 +25,7 @@ import LoginModal from "../../components/Modal/LoginModal";
 import SuccessModal from "../../components/Modal/SuccessModal";
 import CustomFAB from "../../components/Button/CustomFAB";
 import RegisterModal from "../../components/Modal/RegisterModal";
+import TableOddEven from "../../components/Tables/TableOddEven";
 
 const AllData = [
   {
@@ -128,6 +129,39 @@ const AllData = [
   },
   {
     id: "1234990",
+    image: IMAGES.blankperson,
+    name: "John Doe",
+    title: "Proposals",
+    status: IMAGES.authorized,
+    issuedfor: "Hugh Tecson",
+    filedescription: "Bank document for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/16/2024 12:01 PM",
+  },
+  {
+    id: "1234801",
+    image: IMAGES.blankperson,
+    name: "Khaled Smith",
+    title: "Proposals",
+    status: IMAGES.authorized,
+    issuedfor: "Hugh Tecson",
+    filedescription: "Proposal document for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/18/2024 04:25 PM",
+  },
+  {
+    id: "1234901",
+    image: IMAGES.blankperson,
+    name: "John Doe",
+    title: "Proposals",
+    status: IMAGES.authorized,
+    issuedfor: "Hugh Tecson",
+    filedescription: "Proposal document for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/17/2024 05:48 PM",
+  },
+  {
+    id: "1234991",
     image: IMAGES.blankperson,
     name: "John Doe",
     title: "Proposals",
@@ -241,7 +275,7 @@ export const Home = ({ navigation }: HomeScreenProps) => {
           </View>
         </View>
       </View>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={true}>
         <View
           style={[
             GlobalStyleSheet.container,
@@ -317,11 +351,12 @@ export const Home = ({ navigation }: HomeScreenProps) => {
                     <SuccessModal />
                   )}
                   */}
-                  {activeSheet === "login" ? (
+                  {/*{activeSheet === "login" ? (
                     <RegisterModal close={setModalVisible} />
                   ) : (
                     <SuccessModal />
-                  )}
+                  )}*/}
+                  <RegisterModal close={setModalVisible} />
                 </View>
               </Modal>
             </View>
@@ -355,8 +390,13 @@ export const Home = ({ navigation }: HomeScreenProps) => {
             </TouchableOpacity>*/}
           </View>
         </View>
-        <View style={[GlobalStyleSheet.container, { paddingHorizontal: 10 }]}>
-          {AllData.map((data: any, index: any) => {
+        <ScrollView
+          showsHorizontalScrollIndicator={true}
+          horizontal={true}
+          style={[GlobalStyleSheet.container, { paddingHorizontal: 10 }]}
+        >
+          <TableOddEven data={AllData} />
+          {/*{AllData.map((data: any, index: any) => {
             return (
               <View key={index} style={{ marginBottom: 5 }}>
                 <Cardstyle4
@@ -372,9 +412,9 @@ export const Home = ({ navigation }: HomeScreenProps) => {
                   }
                 />
               </View>
-            );
-          })}
-        </View>
+            ); 
+          })} */}
+        </ScrollView>
         <View
           style={{
             flex: 1,
