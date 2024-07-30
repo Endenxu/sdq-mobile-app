@@ -26,7 +26,6 @@ import SuccessModal from "../../components/Modal/SuccessModal";
 import CustomFAB from "../../components/Button/CustomFAB";
 import RegisterModal from "../../components/Modal/RegisterModal";
 import TableOddEven from "../../components/Tables/TableOddEven";
-import TableTest from "../../components/Tables/TableTest";
 
 const AllData = [
   {
@@ -172,6 +171,150 @@ const AllData = [
     authorizedby: "Khaled Smith",
     date: "7/16/2024 12:01 PM",
   },
+
+  {
+    id: "1244100",
+    image: IMAGES.blankperson,
+    name: "Khaled Smith",
+    title: "Bank Document",
+    status: IMAGES.new,
+    issuedfor: "Hugh Tecson",
+    filedescription: "Bank document for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/25/2024 12:31 PM",
+  },
+  {
+    id: "1235200",
+    image: IMAGES.blankperson,
+    name: "Hugh Tecson",
+    title: "QR",
+    status: IMAGES.new,
+    issuedfor: "Hugh Tecson",
+    filedescription: "QR for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/24/2024 01:42 PM",
+  },
+  {
+    id: "1236300",
+    image: IMAGES.blankperson,
+    name: "John Doe",
+    title: "Code",
+    status: IMAGES.new,
+    issuedfor: "Hugh Tecson",
+    filedescription: "Code Review for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/23/2024 02:43 PM",
+  },
+  {
+    id: "1237400",
+    image: IMAGES.blankperson,
+    name: "Khaled Smith",
+    title: "Bank Documents",
+    status: IMAGES.authorized,
+    issuedfor: "Hugh Tecson",
+    filedescription: "Bank document for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/22/2024 03:46 PM",
+  },
+  {
+    id: "1238500",
+    image: IMAGES.blankperson,
+    name: "Khaled Smith",
+    title: "Proposals",
+    status: IMAGES.authorized,
+    issuedfor: "Hugh Tecson",
+    filedescription: "Proposal for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/21/2024 12:58 PM",
+  },
+  {
+    id: "1239600",
+    image: IMAGES.blankperson,
+    name: "Khaled Smith",
+    title: "Thesis",
+    status: IMAGES.authorized,
+    issuedfor: "Hugh Tecson",
+    filedescription: "Documents for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/20/2024 03:26 PM",
+  },
+  {
+    id: "1231000",
+    image: IMAGES.blankperson,
+    name: "Khaled Smith",
+    title: "Important Documents",
+    status: IMAGES.authorized,
+    issuedfor: "Hugh Tecson",
+    filedescription: "Urgent Document for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/19/2024 12:30 PM",
+  },
+  {
+    id: "1231100",
+    image: IMAGES.blankperson,
+    name: "Khaled Smith",
+    title: "Proposals",
+    status: IMAGES.authorized,
+    issuedfor: "Hugh Tecson",
+    filedescription: "Proposal document for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/18/2024 04:25 PM",
+  },
+  {
+    id: "1231200",
+    image: IMAGES.blankperson,
+    name: "John Doe",
+    title: "Proposals",
+    status: IMAGES.authorized,
+    issuedfor: "Hugh Tecson",
+    filedescription: "Proposal document for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/17/2024 05:48 PM",
+  },
+  {
+    id: "1232390",
+    image: IMAGES.blankperson,
+    name: "John Doe",
+    title: "Proposals",
+    status: IMAGES.authorized,
+    issuedfor: "Hugh Tecson",
+    filedescription: "Bank document for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/16/2024 12:01 PM",
+  },
+  {
+    id: "1232401",
+    image: IMAGES.blankperson,
+    name: "Khaled Smith",
+    title: "Proposals",
+    status: IMAGES.authorized,
+    issuedfor: "Hugh Tecson",
+    filedescription: "Proposal document for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/18/2024 04:25 PM",
+  },
+  {
+    id: "1232501",
+    image: IMAGES.blankperson,
+    name: "John Doe",
+    title: "Proposals",
+    status: IMAGES.authorized,
+    issuedfor: "Hugh Tecson",
+    filedescription: "Proposal document for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/17/2024 05:48 PM",
+  },
+  {
+    id: "1232691",
+    image: IMAGES.blankperson,
+    name: "John Doe",
+    title: "Proposals",
+    status: IMAGES.authorized,
+    issuedfor: "Hugh Tecson",
+    filedescription: "Bank document for hugh",
+    authorizedby: "Khaled Smith",
+    date: "7/16/2024 12:01 PM",
+  },
 ];
 
 const ActionData = [
@@ -185,9 +328,6 @@ const ActionData = [
 type HomeScreenProps = StackScreenProps<RootStackParamList, "Home">;
 
 export const Home = ({ navigation }: HomeScreenProps) => {
-  // const wishList = useSelector((state:any) => state.wishList.wishList);
-  // console.log(wishList);
-
   const dispatch = useDispatch();
 
   const theme = useTheme();
@@ -196,6 +336,22 @@ export const Home = ({ navigation }: HomeScreenProps) => {
   // Modal use effect
   const [activeSheet, setActiveSheet] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+
+  const itemsPerPage = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(AllData.length / itemsPerPage);
+
+  const handleFirstPage = () => setCurrentPage(1);
+  const handlePreviousPage = () =>
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
+  const handleNextPage = () =>
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  const handleLastPage = () => setCurrentPage(totalPages);
+
+  const currentData = AllData.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   return (
     <View style={{ backgroundColor: colors.card, flex: 1, zIndex: 0 }}>
@@ -367,14 +523,14 @@ export const Home = ({ navigation }: HomeScreenProps) => {
         <View
           style={[
             GlobalStyleSheet.container,
-            { paddingHorizontal: 0, paddingTop: 5, paddingBottom: 0 },
+            { paddingHorizontal: 0, paddingTop: 7, paddingBottom: 0 },
           ]}
         >
           <View style={[GlobalStyleSheet.flex, { paddingHorizontal: 30 }]}>
             <Text
               style={[
                 styles.brandsubtitle3,
-                { fontSize: 18, color: colors.title },
+                { fontSize: 15, color: colors.title },
               ]}
             >
               Displayed Files
@@ -392,7 +548,7 @@ export const Home = ({ navigation }: HomeScreenProps) => {
           </View>
         </View>
         <View style={[GlobalStyleSheet.container, {}]}>
-          <TableOddEven data={AllData} />
+          <TableOddEven data={currentData} />
           {/*{AllData.map((data: any, index: any) => {
             return (
               <View key={index} style={{ marginBottom: 5 }}>
@@ -418,33 +574,55 @@ export const Home = ({ navigation }: HomeScreenProps) => {
             justifyContent: "center",
             flexDirection: "row",
             gap: 20,
+            paddingBottom: 10,
+            bottom: 10,
           }}
         >
-          <TouchableOpacity>
-            <Entypo
-              name="controller-fast-backward"
-              size={24}
-              color={colors.title3}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={handleFirstPage}
+            disabled={currentPage === 1}
+          >
             <Entypo
               name="controller-jump-to-start"
               size={24}
-              color={colors.title3}
+              color={currentPage === 1 ? colors.disabled : colors.title3}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={handlePreviousPage}
+            disabled={currentPage === 1}
+          >
+            <Entypo
+              name="controller-fast-backward"
+              size={24}
+              color={currentPage === 1 ? colors.disabled : colors.title3}
             />
           </TouchableOpacity>
           <TouchableOpacity>
-            <Entypo name="controller-record" size={24} color={colors.title3} />
+            <Text style={{ color: colors.title3 }}>{currentPage}</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
-            <Entypo name="controller-next" size={24} color={colors.title3} />
-          </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={handleNextPage}
+            disabled={currentPage === totalPages}
+          >
             <Entypo
               name="controller-fast-forward"
               size={24}
-              color={colors.title3}
+              color={
+                currentPage === totalPages ? colors.disabled : colors.title3
+              }
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={handleLastPage}
+            disabled={currentPage === totalPages}
+          >
+            <Entypo
+              name="controller-next"
+              size={24}
+              color={
+                currentPage === totalPages ? colors.disabled : colors.title3
+              }
             />
           </TouchableOpacity>
         </View>
