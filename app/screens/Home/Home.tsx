@@ -26,6 +26,7 @@ import SuccessModal from "../../components/Modal/SuccessModal";
 import CustomFAB from "../../components/Button/CustomFAB";
 import RegisterModal from "../../components/Modal/RegisterModal";
 import TableOddEven from "../../components/Tables/TableOddEven";
+import TableTest from "../../components/Tables/TableTest";
 
 const AllData = [
   {
@@ -390,11 +391,7 @@ export const Home = ({ navigation }: HomeScreenProps) => {
             </TouchableOpacity>*/}
           </View>
         </View>
-        <ScrollView
-          showsHorizontalScrollIndicator={true}
-          horizontal={true}
-          style={[GlobalStyleSheet.container, { paddingHorizontal: 10 }]}
-        >
+        <View style={[GlobalStyleSheet.container, {}]}>
           <TableOddEven data={AllData} />
           {/*{AllData.map((data: any, index: any) => {
             return (
@@ -414,7 +411,7 @@ export const Home = ({ navigation }: HomeScreenProps) => {
               </View>
             ); 
           })} */}
-        </ScrollView>
+        </View>
         <View
           style={{
             flex: 1,

@@ -308,14 +308,12 @@ const TableOddEven: React.FC<TableOddEvenProps> = ({ data, style }) => {
       <View
         style={{
           ...GlobalStyleSheet.card,
-          padding: 5,
           backgroundColor: colors.card,
-          marginLeft: 5,
-          marginRight: 5,
         }}
       >
         <View
           style={{
+            flex: 1,
             flexDirection: "row",
             borderBottomWidth: 1,
             borderColor: colors.border,
@@ -492,7 +490,7 @@ const styles = StyleSheet.create({
     color: COLORS.text,
     //borderRightWidth: 1,
     borderColor: "#000000",
-    fontSize: 13,
+    fontSize: 11,
   },
   tbodyItem: {
     paddingHorizontal: 10,
@@ -502,22 +500,22 @@ const styles = StyleSheet.create({
     color: COLORS.title,
     //borderRightWidth: 1,
     //borderColor: "#000000",
-    fontSize: 10,
+    fontSize: 8,
   },
   scrollViewContent: {
     alignItems: "center",
   },
   tableHeader: {
-    width: 110,
+    width: 90,
   },
   tableContent: {
-    width: 110,
+    width: 90,
   },
   statusContent: {
-    width: 80,
+    width: 60,
   },
   statusHeader: {
-    width: 80,
+    width: 60,
   },
 });
 
