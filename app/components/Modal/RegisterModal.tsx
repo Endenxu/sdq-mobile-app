@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -14,6 +14,7 @@ import Button from "../Button/Button";
 import Input from "../Input/Input";
 import { ScrollView } from "react-native-gesture-handler";
 import DropdownComponent from "../Input/dropdown";
+import DateInput from "../Input/DateInput";
 
 type Props = {
   close: any;
@@ -24,10 +25,6 @@ const data = [
   { label: "Item 2", value: "2" },
   { label: "Item 3", value: "3" },
   { label: "Item 4", value: "4" },
-  { label: "Item 5", value: "5" },
-  { label: "Item 6", value: "6" },
-  { label: "Item 7", value: "7" },
-  { label: "Item 8", value: "8" },
 ];
 
 const handleSelect = (value: string) => {
@@ -37,6 +34,8 @@ const handleSelect = (value: string) => {
 const RegisterModal = ({ close }: Props) => {
   const theme = useTheme();
   const { colors }: { colors: any } = theme;
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedDate2, setSelectedDate2] = useState("");
 
   return (
     <View
@@ -45,7 +44,7 @@ const RegisterModal = ({ close }: Props) => {
         maxWidth: 330,
         width: "100%",
         borderRadius: SIZES.radius,
-        height: 430,
+        height: 600,
       }}
     >
       <View
@@ -87,7 +86,7 @@ const RegisterModal = ({ close }: Props) => {
             <Feather size={20} color={colors.title} name="x" />
           </TouchableOpacity>
         </View>
-        <ScrollView style={{ maxHeight: 300, marginBottom: 25 }}>
+        <ScrollView style={{ maxHeight: 420, marginBottom: 25 }}>
           <View style={[styles.dropdownpair]}>
             <View>
               <Text
@@ -188,6 +187,25 @@ const RegisterModal = ({ close }: Props) => {
                 />
               </View>
             </View>
+          </View>
+
+          <View>
+            <Text style={[styles.title3, { color: "#8A8A8A", marginTop: 10 }]}>
+              From Date: {selectedDate}
+            </Text>
+            <DateInput
+              initialDate={selectedDate}
+              onDateChange={setSelectedDate}
+            />
+          </View>
+          <View>
+            <Text style={[styles.title3, { color: "#8A8A8A", marginTop: 10 }]}>
+              To Date: {selectedDate2}
+            </Text>
+            <DateInput
+              initialDate={selectedDate2}
+              onDateChange={setSelectedDate2}
+            />
           </View>
         </ScrollView>
         <Button
