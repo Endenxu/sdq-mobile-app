@@ -20,18 +20,41 @@ type Props = {
   close: any;
 };
 
-const data = [
-  { label: "Item 1", value: "1" },
-  { label: "Item 2", value: "2" },
-  { label: "Item 3", value: "3" },
-  { label: "Item 4", value: "4" },
+const filterdepartment = [
+  { label: "Sales", value: "1" },
+  { label: "Procurement", value: "2" },
+  { label: "Finance", value: "3" },
+  { label: "Development", value: "4" },
+];
+
+const filterstatus = [
+  { label: "New", value: "1" },
+  { label: "Authorized", value: "2" },
+  { label: "Rejected", value: "3" },
+];
+
+const filterfiletype = [
+  { label: "Job Offers", value: "1" },
+  { label: "Contract", value: "2" },
+  { label: "Documents", value: "3" },
+  { label: "Bank Letters", value: "4" },
+];
+
+const filterfolders = [
+  { label: "Medical", value: "1" },
+  { label: "Pharma", value: "2" },
+];
+
+const filterbranch = [
+  { label: "Riyadh", value: "1" },
+  { label: "Jeddah", value: "2" },
 ];
 
 const handleSelect = (value: string) => {
   console.log("Selected value:", value);
 };
 
-const RegisterModal = ({ close }: Props) => {
+const FilterModal = ({ close }: Props) => {
   const theme = useTheme();
   const { colors }: { colors: any } = theme;
   const [selectedDate, setSelectedDate] = useState("");
@@ -96,7 +119,7 @@ const RegisterModal = ({ close }: Props) => {
               </Text>
               <View style={{ marginBottom: 0, marginTop: 0 }}>
                 <DropdownComponent
-                  data={data}
+                  data={filterdepartment}
                   label="Select an option"
                   onSelect={handleSelect}
                   placeholder="Select..."
@@ -112,7 +135,7 @@ const RegisterModal = ({ close }: Props) => {
               </Text>
               <View style={{ marginBottom: 0, marginTop: 0 }}>
                 <DropdownComponent
-                  data={data}
+                  data={filterfiletype}
                   label="Select an option"
                   onSelect={handleSelect}
                   placeholder="Select..."
@@ -130,7 +153,7 @@ const RegisterModal = ({ close }: Props) => {
               </Text>
               <View style={{ marginBottom: 0, marginTop: 0 }}>
                 <DropdownComponent
-                  data={data}
+                  data={filterfolders}
                   label="Select an option"
                   onSelect={handleSelect}
                   placeholder="Select..."
@@ -146,7 +169,7 @@ const RegisterModal = ({ close }: Props) => {
               </Text>
               <View style={{ marginBottom: 0, marginTop: 0 }}>
                 <DropdownComponent
-                  data={data}
+                  data={filterdepartment}
                   label="Select an option"
                   onSelect={handleSelect}
                   placeholder="Select..."
@@ -164,7 +187,7 @@ const RegisterModal = ({ close }: Props) => {
               </Text>
               <View style={{ marginBottom: 0, marginTop: 0 }}>
                 <DropdownComponent
-                  data={data}
+                  data={filterbranch}
                   label="Select an option"
                   onSelect={handleSelect}
                   placeholder="Select..."
@@ -180,7 +203,7 @@ const RegisterModal = ({ close }: Props) => {
               </Text>
               <View style={{ marginBottom: 0, marginTop: 0 }}>
                 <DropdownComponent
-                  data={data}
+                  data={filterstatus}
                   label="Select an option"
                   onSelect={handleSelect}
                   placeholder="Select..."
@@ -252,4 +275,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegisterModal;
+export default FilterModal;

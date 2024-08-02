@@ -5,6 +5,7 @@ import { View, TextInput, StyleSheet, Platform, ViewStyle } from "react-native";
 import { IconButton } from "react-native-paper";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { format } from "date-fns";
+import { useTheme } from "@react-navigation/native";
 
 type DateInputProps = {
   initialDate?: string;
@@ -16,6 +17,9 @@ const DateInput: React.FC<DateInputProps> = ({ initialDate, onDateChange }) => {
   const [date, setDate] = useState(initialDate || "");
   const [showPicker, setShowPicker] = useState(false);
   const [pickerDate, setPickerDate] = useState<Date>(new Date());
+
+  const theme = useTheme();
+  const { colors }: { colors: any } = theme;
 
   const handleDateChange = (event: any, selectedDate?: Date) => {
     if (selectedDate) {
@@ -29,11 +33,12 @@ const DateInput: React.FC<DateInputProps> = ({ initialDate, onDateChange }) => {
   return (
     <View style={styles.container}>
       <TextInput
-        style={styles.input}
+        style={[styles.input]}
         value={date}
         placeholder="YYYY-MM-DD"
         onChangeText={setDate}
         keyboardType="numeric"
+        placeholderTextColor={colors.title3}
       />
       <IconButton
         icon="calendar"
@@ -63,6 +68,7 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     padding: 10,
     borderRadius: 4,
+    backgroundColor: "#ffffff",
   },
 });
 

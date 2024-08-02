@@ -13,18 +13,13 @@ import { useTheme } from "@react-navigation/native";
 import { GlobalStyleSheet } from "../../constants/StyleSheet";
 import { IMAGES } from "../../constants/Images";
 import { COLORS, FONTS } from "../../constants/theme";
-import { Feather, Entypo } from "@expo/vector-icons";
+import { Feather, Entypo, MaterialIcons, AntDesign } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigation/RootStackParamList";
-import { addTowishList } from "../../redux/reducer/wishListReducer";
-import Cardstyle4 from "../../components/Card/Cardstyle4";
 import { openDrawer } from "../../redux/actions/drawerAction";
-import Button from "../../components/Button/Button";
-import LoginModal from "../../components/Modal/LoginModal";
-import SuccessModal from "../../components/Modal/SuccessModal";
 import CustomFAB from "../../components/Button/CustomFAB";
-import RegisterModal from "../../components/Modal/RegisterModal";
+import FilterModal from "../../components/Modal/FilterModal";
 import TableOddEven from "../../components/Tables/TableOddEven";
 
 const AllData = [
@@ -501,19 +496,7 @@ export const Home = ({ navigation }: HomeScreenProps) => {
                       backgroundColor: "rgba(0,0,0,.3)",
                     }}
                   />
-                  {/*}
-                  {activeSheet === "login" ? (
-                    <LoginModal close={setModalVisible} />
-                  ) : (
-                    <SuccessModal />
-                  )}
-                  */}
-                  {/*{activeSheet === "login" ? (
-                    <RegisterModal close={setModalVisible} />
-                  ) : (
-                    <SuccessModal />
-                  )}*/}
-                  <RegisterModal close={setModalVisible} />
+                  <FilterModal close={setModalVisible} />
                 </View>
               </Modal>
             </View>
@@ -535,45 +518,17 @@ export const Home = ({ navigation }: HomeScreenProps) => {
             >
               Displayed Files
             </Text>
-            {/*<TouchableOpacity onPress={() => navigation.navigate("Products")}>
-              <Text
-                style={[
-                  styles.brandsubtitle3,
-                  { fontSize: 16, color: COLORS.primary },
-                ]}
-              >
-              More
-              </Text>
-            </TouchableOpacity>*/}
           </View>
         </View>
         <View style={[GlobalStyleSheet.container, {}]}>
           <TableOddEven data={currentData} />
-          {/*{AllData.map((data: any, index: any) => {
-            return (
-              <View key={index} style={{ marginBottom: 5 }}>
-                <Cardstyle4
-                  name={data.name}
-                  id={data.id}
-                  image={data.image}
-                  price={data.price}
-                  status={data.status}
-                  countnumber={data.countnumber}
-                  title={data.title}
-                  onPress={() =>
-                    navigation.navigate("ProductsDetails", { data })
-                  }
-                />
-              </View>
-            ); 
-          })} */}
         </View>
         <View
           style={{
             flex: 1,
             justifyContent: "center",
             flexDirection: "row",
-            gap: 20,
+            gap: 30,
             paddingBottom: 10,
             bottom: 10,
           }}
@@ -582,8 +537,8 @@ export const Home = ({ navigation }: HomeScreenProps) => {
             onPress={handleFirstPage}
             disabled={currentPage === 1}
           >
-            <Entypo
-              name="controller-jump-to-start"
+            <MaterialIcons
+              name="first-page"
               size={24}
               color={currentPage === 1 ? colors.disabled : colors.title3}
             />
@@ -592,10 +547,11 @@ export const Home = ({ navigation }: HomeScreenProps) => {
             onPress={handlePreviousPage}
             disabled={currentPage === 1}
           >
-            <Entypo
-              name="controller-fast-backward"
-              size={24}
+            <AntDesign
+              name="left"
+              size={16}
               color={currentPage === 1 ? colors.disabled : colors.title3}
+              style={{ top: 3 }}
             />
           </TouchableOpacity>
           <TouchableOpacity>
@@ -605,20 +561,21 @@ export const Home = ({ navigation }: HomeScreenProps) => {
             onPress={handleNextPage}
             disabled={currentPage === totalPages}
           >
-            <Entypo
-              name="controller-fast-forward"
-              size={24}
+            <AntDesign
+              name="right"
+              size={16}
               color={
                 currentPage === totalPages ? colors.disabled : colors.title3
               }
+              style={{ top: 3 }}
             />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={handleLastPage}
             disabled={currentPage === totalPages}
           >
-            <Entypo
-              name="controller-next"
+            <MaterialIcons
+              name="last-page"
               size={24}
               color={
                 currentPage === totalPages ? colors.disabled : colors.title3

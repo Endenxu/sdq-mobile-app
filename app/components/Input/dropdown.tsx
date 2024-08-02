@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, StyleProp, ViewStyle } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
+import { useTheme } from "@react-navigation/native";
 
 interface DropdownItem {
   label: string;
@@ -25,17 +26,19 @@ const DropdownComponent: React.FC<DropdownComponentProps> = ({
   const [value, setValue] = useState<string | null>(null);
   const [isFocus, setIsFocus] = useState(false);
 
+  const theme = useTheme();
+  const { colors }: { colors: any } = theme;
+
   return (
     <View style={[styles.container, style]}>
       {/*<Text style={styles.label}>{label}</Text>*/}
       <Dropdown
         style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
-        placeholderStyle={styles.placeholderStyle}
+        placeholderStyle={[styles.placeholderStyle, { color: colors.title3 }]}
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={styles.inputSearchStyle}
         iconStyle={styles.iconStyle}
         data={data}
-        search
         maxHeight={300}
         labelField="label"
         valueField="value"
@@ -76,7 +79,6 @@ const styles = StyleSheet.create({
   },
   placeholderStyle: {
     fontSize: 16,
-    color: "gray",
   },
   selectedTextStyle: {
     fontSize: 16,
