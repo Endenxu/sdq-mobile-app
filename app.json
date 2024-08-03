@@ -19,15 +19,20 @@
       "splash": {
         "backgroundColor": "#F2F2F2",
         "image": "./assets/sdqnobglogo2.png"
-      }
+      },
+      "bundleIdentifier": "com.sdq.sdqapp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon1.png",
         "backgroundColor": "#F2F2F2"
       },
-      "package": "com.w3itexperts.ombe",
-      "permissions": ["ACCESS_FINE_LOCATION"],
+      "package": "com.sdq.sdqapp",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ],
       "config": {
         "googleMaps": {
           "apiKey": "YOUR_GOOGLE_MAPS_API_KEY"
@@ -52,6 +57,11 @@
           "initialOrientation": "DEFAULT"
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "600a0254-7c55-46f3-b9ca-baa2aafebc5c"
+      }
+    }
   }
 }

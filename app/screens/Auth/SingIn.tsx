@@ -6,6 +6,8 @@ import {
   Image,
   ScrollView,
   StyleSheet,
+  Alert,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 import { COLORS, FONTS } from "../../constants/theme";
@@ -16,6 +18,8 @@ import { RootStackParamList } from "../../navigation/RootStackParamList";
 import Input from "../../components/Input/Input";
 import { IMAGES } from "../../constants/Images";
 import Button from "../../components/Button/Button";
+import axios from "axios";
+//import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type SingInScreenProps = StackScreenProps<RootStackParamList, "SingIn">;
 
@@ -25,6 +29,48 @@ const SingIn = ({ navigation }: SingInScreenProps) => {
 
   const [isFocused, setisFocused] = useState(false);
   const [isFocused2, setisFocused2] = useState(false);
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSignIn = async () => {
+    if (!username || !password) {
+      Alert.alert(
+        "Validation Error",
+        "Please enter both username and password"
+      );
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        "https://your-api-url.com/api/auth/login",
+        {
+          username,
+          password,
+        }
+      );
+
+      setLoading(false);
+
+      if (response.data.success) {
+        //await AsyncStorage.setItem('authToken', response.data.token);
+        Alert.alert("Success", "Logged in successfully");
+        navigation.navigate("DrawerNavigation", { screen: "Home" });
+        // Store the authentication token if necessary
+      } else {
+        Alert.alert(
+          "Authentication Error",
+          response.data.message || "Failed to login"
+        );
+      }
+    } catch (error) {
+      setLoading(false);
+      Alert.alert("Network Error", "Failed to connect to the server");
+    }
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.card }}>
@@ -75,6 +121,16 @@ const SingIn = ({ navigation }: SingInScreenProps) => {
                 inputBorder
                 defaultValue="Khaled"
               />
+              {/* 
+              <Input
+                onFocus={() => setUsername(true)}
+                onBlur={() => setUsername(false)}
+                onChangeText={(value) => setUsername(value)}
+                isFocused={!!username}
+                inputBorder
+                value={username}
+              />
+              */}
             </View>
             <View style={[GlobalStyleSheet.container, { padding: 0 }]}>
               <Text style={[styles.title3, { color: "#8A8A8A" }]}>
@@ -82,6 +138,18 @@ const SingIn = ({ navigation }: SingInScreenProps) => {
               </Text>
             </View>
             <View style={{ marginBottom: 10, marginTop: 10 }}>
+              {/*
+               <Input
+                onFocus={() => setPassword(true)}
+                onBlur={() => setPassword(false)}
+                backround={colors.card}
+                onChangeText={(value) => setPassword(value)}
+                isFocused={!!password}
+                type={"password"}
+                inputBorder
+                value={password}
+              />
+              */}
               <Input
                 onFocus={() => setisFocused2(true)}
                 onBlur={() => setisFocused2(false)}
@@ -95,6 +163,17 @@ const SingIn = ({ navigation }: SingInScreenProps) => {
             </View>
           </View>
           <View style={{ marginTop: 220 }}>
+            {/*
+            {loading ? (
+              <ActivityIndicator size="large" color={COLORS.primary} />
+            ) : (
+              <Button
+                title={"LOGIN"}
+                onPress={handleSignIn}
+                style={{ borderRadius: 52 }}
+              />
+            )}
+            */}
             <Button
               title={"LOGIN"}
               onPress={() =>

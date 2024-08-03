@@ -190,4 +190,5 @@ export const IMAGES = {
   authorized: require("../assets/images/authorized.png"),
   new: require("../assets/images/new.png"),
   blankperson: require("../assets/images/blankperson.png"),
+  reject: require("../assets/images/reject.png"),
 };
