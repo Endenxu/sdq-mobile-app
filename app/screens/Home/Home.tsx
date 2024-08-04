@@ -48,40 +48,46 @@ export const Home = ({ navigation }: HomeScreenProps) => {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = await AsyncStorage.getItem("authToken");
+  const fetchData = async () => {
+    try {
+      const token = await AsyncStorage.getItem("authToken");
 
-        if (!token) {
-          Alert.alert("Authentication Error", "You need to log in first.");
-          return;
-        }
-
-        const response = await axios.get(
-          "https://sdq-demo.azurewebsites.net/api/Files/GetFiles",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        const sortedData = response.data.sort(
-          (a: any, b: any) =>
-            new Date(b.uploadDate).getTime() - new Date(a.uploadDate).getTime()
-        );
-        setData(sortedData);
-      } catch (error) {
-        Alert.alert(
-          "Error fetching data",
-          "There was an issue fetching the data. Please try again later."
-        );
-      } finally {
-        setLoading(false);
+      if (!token) {
+        Alert.alert("Authentication Error", "You need to log in first.");
+        return;
       }
-    };
 
+      const response = await axios.get(
+        "https://sdq-demo.azurewebsites.net/api/Files/GetFiles",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const sortedData = response.data.sort(
+        (a: any, b: any) =>
+          new Date(b.uploadDate).getTime() - new Date(a.uploadDate).getTime()
+      );
+      setData(sortedData);
+    } catch (error) {
+      Alert.alert(
+        "Error fetching data",
+        "There was an issue fetching the data. Please try again later."
+      );
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
     fetchData();
   }, []);
 
@@ -184,7 +190,12 @@ export const Home = ({ navigation }: HomeScreenProps) => {
           </View>
         </View>
       </View>
-      <ScrollView showsVerticalScrollIndicator={true}>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+        showsVerticalScrollIndicator={true}
+      >
         <View
           style={[
             GlobalStyleSheet.container,
@@ -278,7 +289,11 @@ export const Home = ({ navigation }: HomeScreenProps) => {
           </View>
         </View>
         <View style={[GlobalStyleSheet.container, {}]}>
-          <TableOddEven2 data={currentData} />
+          {loading ? (
+            <ActivityIndicator size="large" color={COLORS.primary} />
+          ) : (
+            <TableOddEven2 data={currentData} />
+          )}
         </View>
         <View
           style={{
