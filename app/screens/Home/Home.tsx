@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import {
   View,
   Text,
@@ -8,6 +8,9 @@ import {
   TextInput,
   StyleSheet,
   Modal,
+  Alert,
+  RefreshControl,
+  ActivityIndicator,
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { GlobalStyleSheet } from "../../constants/StyleSheet";
@@ -21,399 +24,9 @@ import { openDrawer } from "../../redux/actions/drawerAction";
 import CustomFAB from "../../components/Button/CustomFAB";
 import FilterModal from "../../components/Modal/FilterModal";
 import TableOddEven from "../../components/Tables/TableOddEven";
-
-const AllData = [
-  {
-    id: "1234100",
-    image: IMAGES.blankperson,
-    name: "Khaled Smith",
-    title: "Bank Document",
-    status: IMAGES.new,
-    issuedfor: "Hugh Tecson",
-    filedescription: "Bank document for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/25/2024 12:31 PM",
-    folder: "Medical",
-    branch: "Riyadh",
-    filetype: "Contract",
-    department: "Sales",
-  },
-  {
-    id: "1234200",
-    image: IMAGES.blankperson,
-    name: "Hugh Tecson",
-    title: "QR",
-    status: IMAGES.new,
-    issuedfor: "Hugh Tecson",
-    filedescription: "QR for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/24/2024 01:42 PM",
-    folder: "Pharma",
-    branch: "Jeddah",
-    filetype: "Bank Letters",
-    department: "Procurement",
-  },
-  {
-    id: "1234300",
-    image: IMAGES.blankperson,
-    name: "John Doe",
-    title: "Code",
-    status: IMAGES.new,
-    issuedfor: "Hugh Tecson",
-    filedescription: "Code Review for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/23/2024 02:43 PM",
-    folder: "Pharma",
-    branch: "Jeddah",
-    filetype: "Contract",
-    department: "Procurement",
-  },
-  {
-    id: "1234400",
-    image: IMAGES.blankperson,
-    name: "Khaled Smith",
-    title: "Bank Documents",
-    status: IMAGES.authorized,
-    issuedfor: "Hugh Tecson",
-    filedescription: "Bank document for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/22/2024 03:46 PM",
-    folder: "Pharma",
-    branch: "Jeddah",
-    filetype: "Contract",
-    department: "Procurement",
-  },
-  {
-    id: "1234500",
-    image: IMAGES.blankperson,
-    name: "Khaled Smith",
-    title: "Proposals",
-    status: IMAGES.authorized,
-    issuedfor: "Hugh Tecson",
-    filedescription: "Proposal for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/21/2024 12:58 PM",
-    folder: "Medical",
-    branch: "Riyadh",
-    filetype: "Contract",
-    department: "Sales",
-  },
-  {
-    id: "1234600",
-    image: IMAGES.blankperson,
-    name: "Khaled Smith",
-    title: "Thesis",
-    status: IMAGES.authorized,
-    issuedfor: "Hugh Tecson",
-    filedescription: "Documents for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/20/2024 03:26 PM",
-    folder: "Pharma",
-    branch: "Jeddah",
-    filetype: "Bank Letters",
-    department: "Procurement",
-  },
-  {
-    id: "1234700",
-    image: IMAGES.blankperson,
-    name: "Khaled Smith",
-    title: "Important Documents",
-    status: IMAGES.authorized,
-    issuedfor: "Hugh Tecson",
-    filedescription: "Urgent Document for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/19/2024 12:30 PM",
-    folder: "Pharma",
-    branch: "Jeddah",
-    filetype: "Contract",
-    department: "Procurement",
-  },
-  {
-    id: "1234800",
-    image: IMAGES.blankperson,
-    name: "Khaled Smith",
-    title: "Proposals",
-    status: IMAGES.authorized,
-    issuedfor: "Hugh Tecson",
-    filedescription: "Proposal document for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/18/2024 04:25 PM",
-    folder: "Medical",
-    branch: "Riyadh",
-    filetype: "Bank Letters",
-    department: "Sales",
-  },
-  {
-    id: "1234900",
-    image: IMAGES.blankperson,
-    name: "John Doe",
-    title: "Proposals",
-    status: IMAGES.authorized,
-    issuedfor: "Hugh Tecson",
-    filedescription: "Proposal document for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/17/2024 05:48 PM",
-    folder: "Medical",
-    branch: "Riyadh",
-    filetype: "Bank Letters",
-    department: "Sales",
-  },
-  {
-    id: "1234990",
-    image: IMAGES.blankperson,
-    name: "John Doe",
-    title: "Proposals",
-    status: IMAGES.authorized,
-    issuedfor: "Hugh Tecson",
-    filedescription: "Bank document for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/16/2024 12:01 PM",
-    branch: "Riyadh",
-    filetype: "Contract",
-    department: "Sales",
-  },
-  {
-    id: "1234801",
-    image: IMAGES.blankperson,
-    name: "Khaled Smith",
-    title: "Proposals",
-    status: IMAGES.authorized,
-    issuedfor: "Hugh Tecson",
-    filedescription: "Proposal document for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/18/2024 04:25 PM",
-    folder: "Pharma",
-    branch: "Jeddah",
-    filetype: "Bank Letters",
-    department: "Procurement",
-  },
-  {
-    id: "1234901",
-    image: IMAGES.blankperson,
-    name: "John Doe",
-    title: "Proposals",
-    status: IMAGES.authorized,
-    issuedfor: "Hugh Tecson",
-    filedescription: "Proposal document for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/17/2024 05:48 PM",
-    folder: "Pharma",
-    branch: "Jeddah",
-    filetype: "Job Offers",
-    department: "Procurement",
-  },
-  {
-    id: "1234991",
-    image: IMAGES.blankperson,
-    name: "John Doe",
-    title: "Proposals",
-    status: IMAGES.authorized,
-    issuedfor: "Hugh Tecson",
-    filedescription: "Bank document for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/16/2024 12:01 PM",
-    folder: "Medical",
-    branch: "Riyadh",
-    filetype: "Job Offers",
-    department: "Sales",
-  },
-
-  {
-    id: "1244100",
-    image: IMAGES.blankperson,
-    name: "Khaled Smith",
-    title: "Bank Document",
-    status: IMAGES.new,
-    issuedfor: "Hugh Tecson",
-    filedescription: "Bank document for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/25/2024 12:31 PM",
-    folder: "Medical",
-    branch: "Riyadh",
-    filetype: "Job Offers",
-    department: "Sales",
-  },
-  {
-    id: "1235200",
-    image: IMAGES.blankperson,
-    name: "Hugh Tecson",
-    title: "QR",
-    status: IMAGES.new,
-    issuedfor: "Hugh Tecson",
-    filedescription: "QR for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/24/2024 01:42 PM",
-    folder: "Pharma",
-    branch: "Jeddah",
-    filetype: "Job Offers",
-    department: "Procurement",
-  },
-  {
-    id: "1236300",
-    image: IMAGES.blankperson,
-    name: "John Doe",
-    title: "Code",
-    status: IMAGES.new,
-    issuedfor: "Hugh Tecson",
-    filedescription: "Code Review for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/23/2024 02:43 PM",
-    folder: "Medical",
-    branch: "Riyadh",
-    filetype: "Contract",
-    department: "Sales",
-  },
-  {
-    id: "1237400",
-    image: IMAGES.blankperson,
-    name: "Khaled Smith",
-    title: "Bank Documents",
-    status: IMAGES.authorized,
-    issuedfor: "Hugh Tecson",
-    filedescription: "Bank document for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/22/2024 03:46 PM",
-    folder: "Medical",
-    branch: "Riyadh",
-    filetype: "Job Offers",
-    department: "Sales",
-  },
-  {
-    id: "1238500",
-    image: IMAGES.blankperson,
-    name: "Khaled Smith",
-    title: "Proposals",
-    status: IMAGES.authorized,
-    issuedfor: "Hugh Tecson",
-    filedescription: "Proposal for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/21/2024 12:58 PM",
-    folder: "Pharma",
-    branch: "Jeddah",
-    filetype: "Contract",
-    department: "Procurement",
-  },
-  {
-    id: "1239600",
-    image: IMAGES.blankperson,
-    name: "Khaled Smith",
-    title: "Thesis",
-    status: IMAGES.authorized,
-    issuedfor: "Hugh Tecson",
-    filedescription: "Documents for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/20/2024 03:26 PM",
-    folder: "Pharma",
-    branch: "Jeddah",
-    filetype: "Job Offers",
-    department: "Procurement",
-  },
-  {
-    id: "1231000",
-    image: IMAGES.blankperson,
-    name: "Khaled Smith",
-    title: "Important Documents",
-    status: IMAGES.authorized,
-    issuedfor: "Hugh Tecson",
-    filedescription: "Urgent Document for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/19/2024 12:30 PM",
-    folder: "Medical",
-    branch: "Riyadh",
-    filetype: "Contract",
-    department: "Sales",
-  },
-  {
-    id: "1231100",
-    image: IMAGES.blankperson,
-    name: "Khaled Smith",
-    title: "Proposals",
-    status: IMAGES.authorized,
-    issuedfor: "Hugh Tecson",
-    filedescription: "Proposal document for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/18/2024 04:25 PM",
-    folder: "Pharma",
-    branch: "Jeddah",
-    filetype: "Documents",
-    department: "Procurement",
-  },
-  {
-    id: "1231200",
-    image: IMAGES.blankperson,
-    name: "John Doe",
-    title: "Proposals",
-    status: IMAGES.authorized,
-    issuedfor: "Hugh Tecson",
-    filedescription: "Proposal document for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/17/2024 05:48 PM",
-    folder: "Pharma",
-    branch: "Jeddah",
-    filetype: "Contract",
-    department: "Procurement",
-  },
-  {
-    id: "1232390",
-    image: IMAGES.blankperson,
-    name: "John Doe",
-    title: "Proposals",
-    status: IMAGES.authorized,
-    issuedfor: "Hugh Tecson",
-    filedescription: "Bank document for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/16/2024 12:01 PM",
-    folder: "Pharma",
-    branch: "Jeddah",
-    filetype: "Documents",
-    department: "Procurement",
-  },
-  {
-    id: "1232401",
-    image: IMAGES.blankperson,
-    name: "Khaled Smith",
-    title: "Proposals",
-    status: IMAGES.reject,
-    issuedfor: "Hugh Tecson",
-    filedescription: "Proposal document for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/18/2024 04:25 PM",
-    folder: "Medical",
-    branch: "Riyadh",
-    filetype: "Contract",
-    department: "Sales",
-  },
-  {
-    id: "1232501",
-    image: IMAGES.blankperson,
-    name: "John Doe",
-    title: "Proposals",
-    status: IMAGES.reject,
-    issuedfor: "Hugh Tecson",
-    filedescription: "Proposal document for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/17/2024 05:48 PM",
-    folder: "Pharma",
-    branch: "Jeddah",
-    filetype: "Documents",
-    department: "Procurement",
-  },
-  {
-    id: "1232691",
-    image: IMAGES.blankperson,
-    name: "John Doe",
-    title: "Proposals",
-    status: IMAGES.reject,
-    issuedfor: "Hugh Tecson",
-    filedescription: "Bank document for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/16/2024 12:01 PM",
-    folder: "Medical",
-    branch: "Riyadh",
-    filetype: "Documents",
-    department: "Sales",
-  },
-];
+import TableOddEven2 from "../../components/Tables/TablerOddEven2";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 
 const ActionData = [
   {
@@ -431,13 +44,54 @@ export const Home = ({ navigation }: HomeScreenProps) => {
   const theme = useTheme();
   const { colors }: { colors: any } = theme;
 
+  const [data, setData] = useState<Array<any>>([]);
+  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = await AsyncStorage.getItem("authToken");
+
+        if (!token) {
+          Alert.alert("Authentication Error", "You need to log in first.");
+          return;
+        }
+
+        const response = await axios.get(
+          "https://sdq-demo.azurewebsites.net/api/Files/GetFiles",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const sortedData = response.data.sort(
+          (a: any, b: any) =>
+            new Date(b.uploadDate).getTime() - new Date(a.uploadDate).getTime()
+        );
+        setData(sortedData);
+      } catch (error) {
+        Alert.alert(
+          "Error fetching data",
+          "There was an issue fetching the data. Please try again later."
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   // Modal use effect
   const [activeSheet, setActiveSheet] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
 
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(AllData.length / itemsPerPage);
+  const totalPages = Math.ceil(data.length / itemsPerPage);
 
   const handleFirstPage = () => setCurrentPage(1);
   const handlePreviousPage = () =>
@@ -446,7 +100,7 @@ export const Home = ({ navigation }: HomeScreenProps) => {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   const handleLastPage = () => setCurrentPage(totalPages);
 
-  const currentData = AllData.slice(
+  const currentData = data.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -624,7 +278,7 @@ export const Home = ({ navigation }: HomeScreenProps) => {
           </View>
         </View>
         <View style={[GlobalStyleSheet.container, {}]}>
-          <TableOddEven data={currentData} />
+          <TableOddEven2 data={currentData} />
         </View>
         <View
           style={{
