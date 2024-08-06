@@ -1,5 +1,5 @@
 import { useTheme } from "@react-navigation/native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,6 +7,8 @@ import {
   Image,
   ScrollView,
   StyleSheet,
+  Alert,
+  ActivityIndicator,
 } from "react-native";
 import { GlobalStyleSheet } from "../../constants/StyleSheet";
 import { IMAGES } from "../../constants/Images";
@@ -15,33 +17,78 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigation/RootStackParamList";
 import Header from "../../layout/Header";
 import CustomFAB from "../../components/Button/CustomFAB";
-
-const profileData = [
-  {
-    id: "1",
-    image: IMAGES.call,
-    title: "Mobile Phone",
-    subtitle: "+12 345 678 92",
-  },
-  {
-    id: "2",
-    image: IMAGES.email,
-    title: "Email Address",
-    subtitle: "example@gmail.com",
-  },
-  {
-    id: "3",
-    image: IMAGES.map,
-    title: "Address",
-    subtitle: "Franklin Avenue, Corner \n St. London, 24125151",
-  },
-];
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type ProfileScreenProps = StackScreenProps<RootStackParamList, "Profile">;
 
 const Profile = ({ navigation }: ProfileScreenProps) => {
   const theme = useTheme();
   const { colors }: { colors: any } = theme;
+
+  const [profile, setProfile] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [profileImage, setProfileImage] = useState<string>(IMAGES.blankperson);
+  const [expandedSection, setExpandedSection] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        const token = await AsyncStorage.getItem("authToken");
+        if (token) {
+          // Fetch Profile Info
+          const response = await axios.get(
+            "https://sdq-demo.azurewebsites.net/api/Account/ProfileInfo",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                accept: "*/*",
+              },
+            }
+          );
+          setProfile(response.data);
+
+          // Fetch Profile Image
+          const imageResponse = await axios.get(
+            `https://sdq-demo.azurewebsites.net/api/Account/GetProfileImage/${token}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                accept: "*/*",
+              },
+            }
+          );
+
+          setProfileImage(imageResponse.data); // Assuming the API returns the image URL
+        }
+      } catch (error) {
+        Alert.alert("Error", "There was an error fetching your profile data.");
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfileData();
+  }, []);
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color={COLORS.primary} />
+        <Text style={styles.loadingText}>Loading Profile...</Text>
+      </View>
+    );
+  }
+
+  if (!profile) {
+    return <Text>Error fetching profile data</Text>;
+  }
+
+  const handleExpandToggle = (section: string) => {
+    setExpandedSection((prev) => (prev === section ? null : section));
+  };
+
   return (
     <View style={{ backgroundColor: colors.card, flex: 1 }}>
       <Header title="Profile" leftIcon={"back"} rightIcon2={"Edit"} />
@@ -52,27 +99,20 @@ const Profile = ({ navigation }: ProfileScreenProps) => {
         <View
           style={[
             GlobalStyleSheet.container,
-            { alignItems: "center", marginTop: 50, padding: 0 },
+            { alignItems: "center", marginTop: 50, marginBottom: 5 },
           ]}
         >
           <View style={[styles.sectionimg]}>
             <Image
               style={{ height: 104, width: 104 }}
-              source={IMAGES.blankperson}
+              source={{ uri: profileImage }}
             />
           </View>
           <Text
-            style={{ ...FONTS.fontSemiBold, fontSize: 28, color: colors.title }}
+            style={{ ...FONTS.fontSemiBold, fontSize: 23, color: colors.title }}
           >
-            Khaled Smith
+            {profile.displayName || "N/A"}
           </Text>
-          <Text
-            style={{
-              ...FONTS.fontRegular,
-              fontSize: 16,
-              color: COLORS.primary,
-            }}
-          ></Text>
         </View>
         <View
           style={[
@@ -80,52 +120,140 @@ const Profile = ({ navigation }: ProfileScreenProps) => {
             { paddingHorizontal: 40, marginTop: 0 },
           ]}
         >
-          <View>
-            {profileData.map((data: any, index: any) => {
-              return (
-                <View
-                  key={index}
+          <TouchableOpacity
+            onPress={() => handleExpandToggle("phoneNumber")}
+            style={styles.expandableSection}
+          >
+            <View
+              style={[
+                GlobalStyleSheet.flexcenter,
+                {
+                  width: "100%",
+                  gap: 20,
+                  justifyContent: "flex-start",
+                  marginBottom: 0,
+                  alignItems: "flex-start",
+                },
+              ]}
+            >
+              <View style={[styles.cardimg, { backgroundColor: colors.card }]}>
+                <Image
                   style={[
-                    GlobalStyleSheet.flexcenter,
-                    {
-                      width: "100%",
-                      gap: 20,
-                      justifyContent: "flex-start",
-                      marginBottom: 25,
-                      alignItems: "flex-start",
-                    },
+                    GlobalStyleSheet.image3,
+                    { tintColor: COLORS.primary },
                   ]}
+                  source={IMAGES.call}
+                />
+              </View>
+              <View>
+                <Text style={[styles.brandsubtitle2, { color: "#7D7D7D" }]}>
+                  Mobile Phone
+                </Text>
+                <Text
+                  style={{
+                    ...FONTS.fontMedium,
+                    fontSize: 16,
+                    color: colors.title,
+                    marginTop: 5,
+                    overflow: "hidden",
+                  }}
+                  numberOfLines={expandedSection === "phoneNumber" ? 0 : 1}
+                  ellipsizeMode="tail"
                 >
-                  <View
-                    style={[styles.cardimg, { backgroundColor: colors.card }]}
-                  >
-                    <Image
-                      style={[
-                        GlobalStyleSheet.image3,
-                        { tintColor: COLORS.primary },
-                      ]}
-                      source={data.image}
-                    />
-                  </View>
-                  <View>
-                    <Text style={[styles.brandsubtitle2, { color: "#7D7D7D" }]}>
-                      {data.title}
-                    </Text>
-                    <Text
-                      style={{
-                        ...FONTS.fontMedium,
-                        fontSize: 16,
-                        color: colors.title,
-                        marginTop: 5,
-                      }}
-                    >
-                      {data.subtitle}
-                    </Text>
-                  </View>
-                </View>
-              );
-            })}
-          </View>
+                  {profile.phoneNumber || "N/A"}
+                </Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => handleExpandToggle("email")}
+            style={styles.expandableSection}
+          >
+            <View
+              style={[
+                GlobalStyleSheet.flexcenter,
+                {
+                  width: "100%",
+                  gap: 20,
+                  justifyContent: "flex-start",
+                  marginBottom: 0,
+                  alignItems: "flex-start",
+                },
+              ]}
+            >
+              <View style={[styles.cardimg, { backgroundColor: colors.card }]}>
+                <Image
+                  style={[
+                    GlobalStyleSheet.image3,
+                    { tintColor: COLORS.primary },
+                  ]}
+                  source={IMAGES.email}
+                />
+              </View>
+              <View style={{ width: "80%" }}>
+                <Text style={[styles.brandsubtitle2, { color: "#7D7D7D" }]}>
+                  Email Address
+                </Text>
+                <Text
+                  style={{
+                    ...FONTS.fontMedium,
+                    fontSize: 16,
+                    color: colors.title,
+                    marginTop: 5,
+                    overflow: "hidden",
+                  }}
+                  numberOfLines={expandedSection === "email" ? 0 : 1}
+                  ellipsizeMode="tail"
+                >
+                  {profile.email || "N/A"}
+                </Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => handleExpandToggle("jobTitle")}
+            style={styles.expandableSection}
+          >
+            <View
+              style={[
+                GlobalStyleSheet.flexcenter,
+                {
+                  width: "100%",
+                  gap: 20,
+                  justifyContent: "flex-start",
+                  marginBottom: 25,
+                  alignItems: "flex-start",
+                },
+              ]}
+            >
+              <View style={[styles.cardimg, { backgroundColor: colors.card }]}>
+                <Image
+                  style={[
+                    GlobalStyleSheet.image3,
+                    { tintColor: COLORS.primary },
+                  ]}
+                  source={IMAGES.briefcase}
+                />
+              </View>
+              <View>
+                <Text style={[styles.brandsubtitle2, { color: "#7D7D7D" }]}>
+                  Job Title
+                </Text>
+                <Text
+                  style={{
+                    ...FONTS.fontMedium,
+                    fontSize: 16,
+                    color: colors.title,
+                    marginTop: 5,
+                  }}
+                >
+                  {profile.jobTitle || "N/A"}
+                </Text>
+              </View>
+            </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
       <View
@@ -141,14 +269,6 @@ const Profile = ({ navigation }: ProfileScreenProps) => {
 };
 
 const styles = StyleSheet.create({
-  arrivaldata: {
-    backgroundColor: COLORS.card,
-    borderRadius: 20,
-    //width:'100%',
-    paddingHorizontal: 15,
-    borderWidth: 1,
-    borderColor: "#EFEFEF",
-  },
   sectionimg: {
     height: 104,
     width: 104,
@@ -160,18 +280,6 @@ const styles = StyleSheet.create({
   brandsubtitle2: {
     ...FONTS.fontRegular,
     fontSize: 12,
-  },
-  brandsubtitle3: {
-    ...FONTS.fontMedium,
-    fontSize: 12,
-    color: COLORS.title,
-  },
-  profilecard: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 15,
-    marginRight: 10,
-    marginBottom: 20,
   },
   cardimg: {
     height: 54,
@@ -188,6 +296,22 @@ const styles = StyleSheet.create({
     elevation: 10,
     alignItems: "center",
     justifyContent: "center",
+  },
+  expandableSection: {
+    marginBottom: 25,
+    width: "100%",
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: COLORS.background,
+  },
+  loadingText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: COLORS.primary,
+    ...FONTS.fontMedium,
   },
 });
 

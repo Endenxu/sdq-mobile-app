@@ -191,4 +191,5 @@ export const IMAGES = {
   new: require("../assets/images/new.png"),
   blankperson: require("../assets/images/blankperson.png"),
   reject: require("../assets/images/reject.png"),
+  briefcase: require("../assets/images/icons/briefcase.png"),
 };

@@ -47,6 +47,7 @@ export const Home = ({ navigation }: HomeScreenProps) => {
   const [data, setData] = useState<Array<any>>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [profile, setProfile] = useState<any>(null);
 
   const fetchData = async () => {
     try {
@@ -82,8 +83,37 @@ export const Home = ({ navigation }: HomeScreenProps) => {
     }
   };
 
+  const fetchProfile = async () => {
+    try {
+      const token = await AsyncStorage.getItem("authToken");
+
+      if (!token) {
+        Alert.alert("Authentication Error", "You need to log in first.");
+        return;
+      }
+
+      const response = await axios.get(
+        "https://sdq-demo.azurewebsites.net/api/Account/ProfileInfo",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setProfile(response.data);
+    } catch (error) {
+      Alert.alert(
+        "Error fetching profile",
+        "There was an issue fetching the profile data. Please try again later."
+      );
+    }
+  };
+
+  // Fetch data and profile when the component mounts
   useEffect(() => {
     fetchData();
+    fetchProfile(); // Fetch profile on component mount
   }, []);
 
   const onRefresh = useCallback(() => {
@@ -138,7 +168,7 @@ export const Home = ({ navigation }: HomeScreenProps) => {
                   color: colors.title,
                 }}
               >
-                Khaled
+                {profile?.userName || "User"}
               </Text>
             </View>
             <View style={{ flexDirection: "row", alignItems: "center" }}>

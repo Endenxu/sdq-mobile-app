@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import {
   View,
   Text,
@@ -8,6 +8,9 @@ import {
   TextInput,
   StyleSheet,
   Modal,
+  Alert,
+  RefreshControl,
+  ActivityIndicator,
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { GlobalStyleSheet } from "../../constants/StyleSheet";
@@ -22,24 +25,8 @@ import CustomFAB from "../../components/Button/CustomFAB";
 import FilterModal from "../../components/Modal/FilterModal";
 import TableOddEven from "../../components/Tables/TableOddEven";
 import TableOddEven2 from "../../components/Tables/TablerOddEven2";
-
-const AllData = [
-  {
-    id: "1234100",
-    image: IMAGES.blankperson,
-    name: "Khaled Smith",
-    title: "Bank Document",
-    status: IMAGES.new,
-    issuedfor: "Hugh Tecson",
-    filedescription: "Bank document for hugh",
-    authorizedby: "Khaled Smith",
-    date: "7/25/2024 12:31 PM",
-    folder: "Medical",
-    branch: "Riyadh",
-    filetype: "Contract",
-    department: "Sales",
-  },
-];
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 
 const ActionData = [
   {
@@ -57,13 +44,88 @@ export const Home = ({ navigation }: HomeScreenProps) => {
   const theme = useTheme();
   const { colors }: { colors: any } = theme;
 
+  const [data, setData] = useState<Array<any>>([]);
+  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const [profile, setProfile] = useState<any>(null);
+
+  const fetchData = async () => {
+    try {
+      const token = await AsyncStorage.getItem("authToken");
+
+      if (!token) {
+        Alert.alert("Authentication Error", "You need to log in first.");
+        return;
+      }
+
+      const response = await axios.get(
+        "https://sdq-demo.azurewebsites.net/api/Files/GetFiles",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const sortedData = response.data.sort(
+        (a: any, b: any) =>
+          new Date(b.uploadDate).getTime() - new Date(a.uploadDate).getTime()
+      );
+      setData(sortedData);
+    } catch (error) {
+      Alert.alert(
+        "Error fetching data",
+        "There was an issue fetching the data. Please try again later."
+      );
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
+    }
+  };
+
+  const fetchProfile = async () => {
+    try {
+      const token = await AsyncStorage.getItem("authToken");
+
+      if (!token) {
+        Alert.alert("Authentication Error", "You need to log in first.");
+        return;
+      }
+
+      const response = await axios.get(
+        "https://sdq-demo.azurewebsites.net/api/Account/ProfileInfo",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setProfile(response.data);
+    } catch (error) {
+      Alert.alert(
+        "Error fetching profile",
+        "There was an issue fetching the profile data. Please try again later."
+      );
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    fetchData();
+  }, []);
+
   // Modal use effect
   const [activeSheet, setActiveSheet] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
 
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(AllData.length / itemsPerPage);
+  const totalPages = Math.ceil(data.length / itemsPerPage);
 
   const handleFirstPage = () => setCurrentPage(1);
   const handlePreviousPage = () =>
@@ -72,15 +134,171 @@ export const Home = ({ navigation }: HomeScreenProps) => {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   const handleLastPage = () => setCurrentPage(totalPages);
 
-  const currentData = AllData.slice(
+  const currentData = data.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
   return (
     <View style={{ backgroundColor: colors.card, flex: 1, zIndex: 0 }}>
-      <View style={{}}></View>
-      <ScrollView showsVerticalScrollIndicator={true}>
+      <View style={{}}>
+        <View
+          style={[
+            GlobalStyleSheet.container,
+            { paddingHorizontal: 30, padding: 0, paddingTop: 30 },
+          ]}
+        >
+          <View style={[GlobalStyleSheet.flex]}>
+            <View>
+              <Text
+                style={{
+                  ...FONTS.fontRegular,
+                  fontSize: 14,
+                  color: colors.title,
+                }}
+              >
+                Good Day
+              </Text>
+              <Text
+                style={{
+                  ...FONTS.fontSemiBold,
+                  fontSize: 24,
+                  color: colors.title,
+                }}
+              >
+                {profile?.displayName || "User"}
+              </Text>
+            </View>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Notification")}
+                activeOpacity={0.5}
+                style={[GlobalStyleSheet.background3, {}]}
+              >
+                <Image
+                  style={[
+                    GlobalStyleSheet.image3,
+                    { tintColor: theme.dark ? COLORS.card : "#5F5F5F" },
+                  ]}
+                  source={IMAGES.Notification}
+                />
+                <View
+                  style={[
+                    styles.notifactioncricle,
+                    {
+                      backgroundColor: colors.card,
+                    },
+                  ]}
+                >
+                  <View
+                    style={{
+                      height: 13,
+                      width: 13,
+                      borderRadius: 13,
+                      backgroundColor: COLORS.primary,
+                    }}
+                  />
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.5}
+                //onPress={() => navigation.openDrawer()}
+                onPress={() => dispatch(openDrawer())}
+                style={[GlobalStyleSheet.background3, {}]}
+              >
+                <Image
+                  style={[
+                    GlobalStyleSheet.image3,
+                    { tintColor: theme.dark ? COLORS.card : "#5F5F5F" },
+                  ]}
+                  source={IMAGES.grid6}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </View>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+        showsVerticalScrollIndicator={true}
+      >
+        <View
+          style={[
+            GlobalStyleSheet.container,
+            { padding: 0, paddingHorizontal: 30, paddingTop: 10 },
+          ]}
+        >
+          <View>
+            <TextInput
+              placeholder="Search"
+              style={[
+                styles.TextInput,
+                { color: COLORS.title, backgroundColor: "#FAFAFA" },
+              ]}
+              placeholderTextColor={"#929292"}
+            />
+            <View style={{ position: "absolute", top: 15, right: 50 }}>
+              <Feather name="search" size={24} color={"#C9C9C9"} />
+            </View>
+
+            <View style={{ bottom: 60 }}>
+              <View>
+                {ActionData.map((data: any, index) => {
+                  return (
+                    <TouchableOpacity
+                      key={index}
+                      style={{ position: "absolute", top: 15, right: -10 }}
+                    >
+                      <Feather
+                        name="filter"
+                        size={24}
+                        color={"#5F5F5F"}
+                        onPress={() => {
+                          {
+                            setActiveSheet(data.sheet);
+                            setModalVisible(true);
+                          }
+                        }}
+                      />
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
+
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+              >
+                <View
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flex: 1,
+                    position: "relative",
+                  }}
+                >
+                  <TouchableOpacity
+                    activeOpacity={1}
+                    onPress={() => {
+                      setModalVisible(true);
+                    }}
+                    style={{
+                      position: "absolute",
+                      height: "100%",
+                      width: "100%",
+                      backgroundColor: "rgba(0,0,0,.3)",
+                    }}
+                  />
+                  <FilterModal close={setModalVisible} />
+                </View>
+              </Modal>
+            </View>
+          </View>
+        </View>
+
         <View
           style={[
             GlobalStyleSheet.container,
@@ -99,7 +317,11 @@ export const Home = ({ navigation }: HomeScreenProps) => {
           </View>
         </View>
         <View style={[GlobalStyleSheet.container, {}]}>
-          <TableOddEven data={currentData} />
+          {loading ? (
+            <ActivityIndicator size="large" color={COLORS.primary} />
+          ) : (
+            <TableOddEven2 data={currentData} />
+          )}
         </View>
         <View
           style={{
