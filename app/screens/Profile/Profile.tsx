@@ -106,6 +106,8 @@ const Profile = ({ navigation }: ProfileScreenProps) => {
             <Image
               style={{ height: 104, width: 104 }}
               source={{ uri: profileImage }}
+              //source={IMAGES.blankperson}
+              //source={profile.profileImage}
             />
           </View>
           <Text
