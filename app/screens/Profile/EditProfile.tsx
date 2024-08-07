@@ -1,580 +1,3 @@
-/*
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-  Platform,
-} from "react-native";
-import { useNavigation, useTheme } from "@react-navigation/native";
-import Header from "../../layout/Header";
-import { GlobalStyleSheet } from "../../constants/StyleSheet";
-import { IMAGES } from "../../constants/Images";
-import Input from "../../components/Input/Input";
-import ImagePicker from "react-native-image-crop-picker";
-import Button from "../../components/Button/Button";
-import { COLORS, FONTS } from "../../constants/theme";
-
-const EditProfile = () => {
-  const theme = useTheme();
-  const { colors }: { colors: any } = theme;
-
-  const navigation = useNavigation<any>();
-
-  const [isFocused, setisFocused] = useState(false);
-  const [isFocused1, setisFocused1] = useState(false);
-  const [isFocused2, setisFocused2] = useState(false);
-  const [isFocused3, setisFocused3] = useState(false);
-
-  const [imageUrl, setImageUrl] = useState("");
-
-  const [inputValue, setInputValue] = useState("");
-
-  const handleChange = (text: any) => {
-    const numericValue = text.replace(/[^0-9]/g, "");
-    setInputValue(numericValue);
-  };
-
-  // const handleImageSelect = () => {
-  //     if(Platform.OS == 'android'){
-  //         try {
-  //             ImagePicker.openPicker({
-  //                 width: 200,
-  //                 height: 200,
-  //                 cropping: true
-  //             }).then((image: { path: React.SetStateAction<string>; })  => {
-  //                 setImageUrl(image.path);
-  //             });
-  //         } catch (e) {
-  //             console.log(e);
-  //         }
-
-  //     }
-  // }
-
-  return (
-    <View style={{ backgroundColor: colors.background, flex: 1 }}>
-      <Header title="Edit Profile" leftIcon="back" titleRight />
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          paddingHorizontal: 15,
-          marginBottom: 50,
-        }}
-      >
-        <View
-          style={[
-            GlobalStyleSheet.container,
-            {
-              backgroundColor: theme.dark
-                ? "rgba(255,255,255,.1)"
-                : colors.card,
-              elevation: theme.dark ? 0 : 5, // Disable elevation in dark mode
-              shadowOpacity: theme.dark ? 0 : 0.25, // Disable shadow in dark mode
-              marginTop: 10,
-              borderRadius: 15,
-            },
-          ]}
-        >
-          <View style={{ flexDirection: "row", alignItems: "center", gap: 20 }}>
-            <View style={{}}>
-              <View style={styles.imageborder}>
-                <Image
-                  style={{ height: 82, width: 82, borderRadius: 50 }}
-                  source={IMAGES.blankperson}
-                />
-              </View>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                // onPress={handleImageSelect}
-                style={[
-                  styles.WriteIconBackground,
-                  { backgroundColor: colors.card },
-                ]}
-              >
-                <View style={styles.WriteIcon}>
-                  <Image
-                    style={{
-                      height: 16,
-                      width: 16,
-                      resizeMode: "contain",
-                      tintColor: COLORS.card,
-                    }}
-                    source={IMAGES.write}
-                  />
-                </View>
-              </TouchableOpacity>
-            </View>
-            <View>
-              <Text
-                style={[
-                  FONTS.fontMedium,
-                  { fontSize: 19, color: colors.title },
-                ]}
-              >
-                Khaled Smith
-              </Text>
-              <Text
-                style={[
-                  FONTS.fontRegular,
-                  { fontSize: 12, color: colors.text },
-                ]}
-              >
-                this is for id profile.id
-              </Text>
-            </View>
-          </View>
-        </View>
-        <TouchableOpacity
-          style={[
-            GlobalStyleSheet.container,
-            styles.linkContainer,
-            {
-              backgroundColor: theme.dark
-                ? "rgba(255,255,255,.1)"
-                : colors.card,
-              elevation: theme.dark ? 0 : 5, // Disable elevation in dark mode
-              shadowOpacity: theme.dark ? 0 : 0.25, // Disable shadow in dark mode
-            },
-          ]}
-        >
-          <Text style={[styles.linkText, { color: colors.title }]}>
-            Change Password
-          </Text>
-        </TouchableOpacity>
-      </ScrollView>
-      <View style={[GlobalStyleSheet.container]}>
-        <Button
-          title="Update Profile"
-          color={COLORS.primary}
-          text={COLORS.card}
-          onPress={() => navigation.navigate("Profile")}
-          style={{ borderRadius: 50 }}
-        />
-      </View>
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  icon: {
-    height: 28,
-    width: 28,
-    resizeMode: "contain",
-  },
-  cardBackground: {
-    marginTop: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.background,
-    marginHorizontal: -15,
-    paddingHorizontal: 15,
-    paddingBottom: 15,
-    marginBottom: 10,
-  },
-  imageborder: {
-    borderWidth: 2,
-    borderColor: COLORS.primary,
-    height: 90,
-    width: 90,
-    borderRadius: 50,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  WriteIconBackground: {
-    height: 42,
-    width: 42,
-    borderRadius: 40,
-    backgroundColor: COLORS.card,
-    alignItems: "center",
-    justifyContent: "center",
-    position: "absolute",
-    bottom: 0,
-    left: 60,
-  },
-  WriteIcon: {
-    height: 36,
-    width: 36,
-    borderRadius: 36,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: COLORS.primary,
-  },
-  InputTitle: {
-    ...FONTS.fontMedium,
-    fontSize: 13,
-    color: COLORS.title,
-    marginBottom: 5,
-  },
-  bottomBtn: {
-    height: 75,
-    width: "100%",
-    backgroundColor: COLORS.card,
-    justifyContent: "center",
-    paddingHorizontal: 15,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 2,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-  },
-  linkContainer: {
-    borderRadius: 15,
-    height: 60,
-    justifyContent: "center",
-    paddingHorizontal: 20,
-    marginVertical: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-    marginTop: 20,
-  },
-  linkText: {
-    flex: 1,
-    textAlign: "center",
-    fontSize: 16,
-  },
-});
-
-export default EditProfile; */
-
-/*
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-  Platform,
-} from "react-native";
-import { useNavigation, useTheme } from "@react-navigation/native";
-import Header from "../../layout/Header";
-import { GlobalStyleSheet } from "../../constants/StyleSheet";
-import { IMAGES } from "../../constants/Images";
-import Input from "../../components/Input/Input";
-import * as ImagePicker from "expo-image-picker";
-import Button from "../../components/Button/Button";
-import { COLORS, FONTS } from "../../constants/theme";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
-const EditProfile = () => {
-  const theme = useTheme();
-  const { colors }: { colors: any } = theme;
-
-  const navigation = useNavigation<any>();
-
-  const [isFocused, setisFocused] = useState(false);
-  const [isFocused1, setisFocused1] = useState(false);
-  const [isFocused2, setisFocused2] = useState(false);
-  const [isFocused3, setisFocused3] = useState(false);
-
-  const [imageUrl, setImageUrl] = useState("");
-  const [profileData, setProfileData] = useState({ name: "", id: "" });
-  const [token, setToken] = useState("");
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const storedToken = await AsyncStorage.getItem("token");
-      if (storedToken) {
-        setToken(storedToken);
-        getProfileData(storedToken);
-        getProfileImage(storedToken);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  const getProfileData = async (token: string) => {
-    try {
-      const response = await fetch(
-        "https://sdq-demo.azurewebsites.net/api/Account/ProfileInfo",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      const data = await response.json();
-      setProfileData({ name: data.name, id: data.id });
-    } catch (error) {
-      console.error("Error fetching profile data:", error);
-    }
-  };
-
-  const getProfileImage = async (token: string) => {
-    try {
-      const response = await fetch(
-        `https://sdq-demo.azurewebsites.net/api/Account/GetProfileImage/${token}`
-      );
-      const data = await response.blob();
-      setImageUrl(URL.createObjectURL(data));
-    } catch (error) {
-      console.error("Error fetching profile image:", error);
-    }
-  };
-
-  const handleImageSelect = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
-    });
-
-    if (!result.canceled && result.assets.length > 0) {
-      const { uri } = result.assets[0];
-      setImageUrl(uri);
-      const formData = new FormData();
-      const file = {
-        uri,
-        type: "image/jpeg",
-        name: "profile.jpg",
-      };
-
-      formData.append("file", file as any);
-
-      await fetch(
-        "https://sdq-demo.azurewebsites.net/api/Account/UploadProficeImage",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-          body: formData,
-        }
-      );
-    }
-  };
-
-  const handleUpdateProfile = async () => {
-    try {
-      const response = await fetch(
-        "https://sdq-demo.azurewebsites.net/api/Account/ProfileInfo",
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: profileData.name,
-            id: profileData.id,
-          }),
-        }
-      );
-      if (response.ok) {
-        navigation.navigate("Profile");
-      }
-    } catch (error) {
-      console.error("Error updating profile:", error);
-    }
-  };
-
-  return (
-    <View style={{ backgroundColor: colors.background, flex: 1 }}>
-      <Header title="Edit Profile" leftIcon="back" titleRight />
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          paddingHorizontal: 15,
-          marginBottom: 50,
-        }}
-      >
-        <View
-          style={[
-            GlobalStyleSheet.container,
-            {
-              backgroundColor: theme.dark
-                ? "rgba(255,255,255,.1)"
-                : colors.card,
-              elevation: theme.dark ? 0 : 5, // Disable elevation in dark mode
-              shadowOpacity: theme.dark ? 0 : 0.25, // Disable shadow in dark mode
-              marginTop: 10,
-              borderRadius: 15,
-            },
-          ]}
-        >
-          <View style={{ flexDirection: "row", alignItems: "center", gap: 20 }}>
-            <View style={{}}>
-              <View style={styles.imageborder}>
-                <Image
-                  style={{ height: 82, width: 82, borderRadius: 50 }}
-                  source={imageUrl ? { uri: imageUrl } : IMAGES.blankperson}
-                />
-              </View>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={handleImageSelect}
-                style={[
-                  styles.WriteIconBackground,
-                  { backgroundColor: colors.card },
-                ]}
-              >
-                <View style={styles.WriteIcon}>
-                  <Image
-                    style={{
-                      height: 16,
-                      width: 16,
-                      resizeMode: "contain",
-                      tintColor: COLORS.card,
-                    }}
-                    source={IMAGES.write}
-                  />
-                </View>
-              </TouchableOpacity>
-            </View>
-            <View>
-              <Text
-                style={[
-                  FONTS.fontMedium,
-                  { fontSize: 19, color: colors.title },
-                ]}
-              >
-                {profileData.name}
-              </Text>
-              <Text
-                style={[
-                  FONTS.fontRegular,
-                  { fontSize: 12, color: colors.text },
-                ]}
-              >
-                {profileData?.id}
-              </Text>
-            </View>
-          </View>
-        </View>
-        <TouchableOpacity
-          style={[
-            GlobalStyleSheet.container,
-            styles.linkContainer,
-            {
-              backgroundColor: theme.dark
-                ? "rgba(255,255,255,.1)"
-                : colors.card,
-              elevation: theme.dark ? 0 : 5, // Disable elevation in dark mode
-              shadowOpacity: theme.dark ? 0 : 0.25, // Disable shadow in dark mode
-            },
-          ]}
-        >
-          <Text style={[styles.linkText, { color: colors.title }]}>
-            Change Password
-          </Text>
-        </TouchableOpacity>
-      </ScrollView>
-      <View style={[GlobalStyleSheet.container]}>
-        <Button
-          title="Update Profile"
-          color={COLORS.primary}
-          text={COLORS.card}
-          onPress={handleUpdateProfile}
-          style={{ borderRadius: 50 }}
-        />
-      </View>
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  icon: {
-    height: 28,
-    width: 28,
-    resizeMode: "contain",
-  },
-  cardBackground: {
-    marginTop: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.background,
-    marginHorizontal: -15,
-    paddingHorizontal: 15,
-    paddingBottom: 15,
-    marginBottom: 10,
-  },
-  imageborder: {
-    borderWidth: 2,
-    borderColor: COLORS.primary,
-    height: 90,
-    width: 90,
-    borderRadius: 50,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  WriteIconBackground: {
-    height: 42,
-    width: 42,
-    borderRadius: 40,
-    backgroundColor: COLORS.card,
-    alignItems: "center",
-    justifyContent: "center",
-    position: "absolute",
-    bottom: 0,
-    left: 60,
-  },
-  WriteIcon: {
-    height: 36,
-    width: 36,
-    borderRadius: 36,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: COLORS.primary,
-  },
-  InputTitle: {
-    ...FONTS.fontMedium,
-    fontSize: 13,
-    color: COLORS.title,
-    marginBottom: 5,
-  },
-  bottomBtn: {
-    height: 75,
-    width: "100%",
-    backgroundColor: COLORS.card,
-    justifyContent: "center",
-    paddingHorizontal: 15,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 2,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-  },
-  linkContainer: {
-    borderRadius: 15,
-    height: 60,
-    justifyContent: "center",
-    paddingHorizontal: 20,
-    marginVertical: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-    marginTop: 20,
-  },
-  linkText: {
-    flex: 1,
-    textAlign: "center",
-    fontSize: 16,
-  },
-});
-
-export default EditProfile; */
-
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -595,6 +18,7 @@ import Button from "../../components/Button/Button";
 import * as ImagePicker from "expo-image-picker";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Buffer } from "buffer";
 
 const EditProfile = () => {
   const theme = useTheme();
@@ -602,7 +26,7 @@ const EditProfile = () => {
 
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [imageUrl, setImageUrl] = useState<string>(IMAGES.blankperson);
+  const [profileImage, setProfileImage] = useState<string>(IMAGES.blankperson);
   const [selectedImage, setSelectedImage] = useState<any>(null);
 
   useEffect(() => {
@@ -630,9 +54,14 @@ const EditProfile = () => {
                 Authorization: `Bearer ${token}`,
                 accept: "*/*",
               },
+              responseType: "arraybuffer", // Fetch the image as binary data
             }
           );
-          setImageUrl(imageResponse.data); // Assuming the API returns the image URL
+
+          const base64Image = `data:image/png;base64,${Buffer.from(
+            imageResponse.data
+          ).toString("base64")}`;
+          setProfileImage(base64Image);
         }
       } catch (error) {
         Alert.alert("Error", "There was an error fetching your profile data.");
@@ -656,7 +85,6 @@ const EditProfile = () => {
     if (!result.canceled && result.assets && result.assets.length > 0) {
       const uri = result.assets[0].uri; // Correctly access the URI
       setSelectedImage(uri);
-      uploadImage(uri);
     }
   };
 
@@ -681,10 +109,16 @@ const EditProfile = () => {
           },
         }
       );
-      Alert.alert("Success", "Profile image selected.");
+      Alert.alert("Success", "Profile image updated.");
     } catch (error) {
       Alert.alert("Error", "There was an error uploading the image.");
       console.error(error);
+    }
+  };
+
+  const handleUpdateProfile = async () => {
+    if (selectedImage) {
+      await uploadImage(selectedImage);
     }
   };
 
@@ -730,7 +164,7 @@ const EditProfile = () => {
               <View style={styles.imageborder}>
                 <Image
                   style={{ height: 82, width: 82, borderRadius: 50 }}
-                  source={{ uri: selectedImage || imageUrl }}
+                  source={{ uri: selectedImage || profileImage }}
                 />
               </View>
               <TouchableOpacity
@@ -797,9 +231,7 @@ const EditProfile = () => {
           title="Update Profile"
           color={COLORS.primary}
           text={COLORS.card}
-          onPress={() => {
-            /* Handle profile update */
-          }}
+          onPress={handleUpdateProfile}
           style={{ borderRadius: 50 }}
         />
       </View>

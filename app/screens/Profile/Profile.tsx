@@ -9,6 +9,7 @@ import {
   StyleSheet,
   Alert,
   ActivityIndicator,
+  RefreshControl,
 } from "react-native";
 import { GlobalStyleSheet } from "../../constants/StyleSheet";
 import { IMAGES } from "../../constants/Images";
@@ -19,6 +20,7 @@ import Header from "../../layout/Header";
 import CustomFAB from "../../components/Button/CustomFAB";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Buffer } from "buffer";
 
 type ProfileScreenProps = StackScreenProps<RootStackParamList, "Profile">;
 
@@ -30,47 +32,59 @@ const Profile = ({ navigation }: ProfileScreenProps) => {
   const [loading, setLoading] = useState(true);
   const [profileImage, setProfileImage] = useState<string>(IMAGES.blankperson);
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const fetchProfileData = async () => {
+    setLoading(true);
+    try {
+      const token = await AsyncStorage.getItem("authToken");
+      if (token) {
+        // Fetch Profile Info
+        const response = await axios.get(
+          "https://sdq-demo.azurewebsites.net/api/Account/ProfileInfo",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              accept: "*/*",
+            },
+          }
+        );
+        setProfile(response.data);
+
+        // Fetch Profile Image
+        const imageResponse = await axios.get(
+          `https://sdq-demo.azurewebsites.net/api/Account/GetProfileImage/${token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              accept: "*/*",
+            },
+            responseType: "arraybuffer", // Fetch the image as binary data
+          }
+        );
+
+        const base64Image = `data:image/png;base64,${Buffer.from(
+          imageResponse.data
+        ).toString("base64")}`;
+        setProfileImage(base64Image);
+      }
+    } catch (error) {
+      Alert.alert("Error", "There was an error fetching your profile data.");
+      console.error(error);
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchProfileData = async () => {
-      try {
-        const token = await AsyncStorage.getItem("authToken");
-        if (token) {
-          // Fetch Profile Info
-          const response = await axios.get(
-            "https://sdq-demo.azurewebsites.net/api/Account/ProfileInfo",
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                accept: "*/*",
-              },
-            }
-          );
-          setProfile(response.data);
-
-          // Fetch Profile Image
-          const imageResponse = await axios.get(
-            `https://sdq-demo.azurewebsites.net/api/Account/GetProfileImage/${token}`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                accept: "*/*",
-              },
-            }
-          );
-
-          setProfileImage(imageResponse.data); // Assuming the API returns the image URL
-        }
-      } catch (error) {
-        Alert.alert("Error", "There was an error fetching your profile data.");
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchProfileData();
   }, []);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    fetchProfileData();
+  };
 
   if (loading) {
     return (
@@ -95,6 +109,9 @@ const Profile = ({ navigation }: ProfileScreenProps) => {
       <ScrollView
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ flexGrow: 1, paddingBottom: 50 }}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       >
         <View
           style={[
