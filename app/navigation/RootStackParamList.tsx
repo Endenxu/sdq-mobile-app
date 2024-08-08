@@ -77,4 +77,5 @@ export type RootStackParamList = {
   UploadFile: undefined;
   NotAvailableYet: undefined;
   NotificationDetails: { data: any };
+  Token: { token: string };
 };

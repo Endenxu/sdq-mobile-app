@@ -60,6 +60,7 @@ import Toggles from "../screens/Components/Toggles";
 import UploadFile from "../screens/Upload/UploadFile";
 import NotAvailableYet from "../screens/Update/Update";
 import NotificationDetails from "../screens/Notification/NotificationDetails";
+import Token from "../screens/Token/Token";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -101,6 +102,7 @@ const StackNavigator = () => {
         <Stack.Screen name="DrawerNavigation" component={DrawerNavigation} />
         <Stack.Screen name="BottomNavigation" component={BottomNavigation} />
         <Stack.Screen name="Notification" component={Notification} />
+        <Stack.Screen name="Token" component={Token} />
 
         <Stack.Screen name="UploadFile" component={UploadFile} />
         <Stack.Screen name="Search" component={Search} />

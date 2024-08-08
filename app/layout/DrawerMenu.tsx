@@ -59,6 +59,12 @@ const MenuItems = [
     navigate: "Chat",
   },*/
   {
+    id: "7",
+    icon: IMAGES.user,
+    name: "Token",
+    navigate: "Token",
+  },
+  {
     id: "8",
     icon: IMAGES.user3,
     name: "Profile",

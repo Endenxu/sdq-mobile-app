@@ -8,7 +8,8 @@
     "userInterfaceStyle": "light",
     "splash": {
       "backgroundColor": "#F2F2F2",
-      "image": "./assets/sdqnobglogo2.png"
+      "image": "./assets/sdqsplash.png",
+      "resizeMode": "cover"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -18,7 +19,8 @@
       "requireFullScreen": true,
       "splash": {
         "backgroundColor": "#F2F2F2",
-        "image": "./assets/sdqnobglogo2.png"
+        "image": "./assets/sdqsplash.png",
+        "resizeMode": "cover"
       },
       "bundleIdentifier": "com.sdq.sdqapp"
     },
