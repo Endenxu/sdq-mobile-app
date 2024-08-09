@@ -20,19 +20,19 @@ import Button from "../../components/Button/Button";
 
 const DATA = [
   {
-    title: "Data Management System",
+    title: "منصة آمنة للتوقيع والمشاركة",
     subtitle:
-      "Manage your business files effortlessly with our secure and easy-to-use app.",
+      "نوفر لك منصة آمنة ومضمونة تقدر توثق وتشارك مستنداتك الرقمية بكل سهولة وسلاسة",
   },
   {
-    title: "Explore Our Key Features",
+    title: "منصة آمنة للتوقيع والمشاركة",
     subtitle:
-      "Secure Storage: Top-notch security for your files. \n Easy Sharing: Share files in just a few clicks. \n Advanced Search: Find files quickly. \n Collaboration: Work with your team in real-time",
+      "نوفر لك منصة آمنة ومضمونة تقدر توثق وتشارك مستنداتك الرقمية بكل سهولة وسلاسة",
   },
   {
-    title: "Get Started in 3 Steps",
+    title: "توقيع ومشاركة مستنداتك بسهولة",
     subtitle:
-      "Upload Files: Securely upload your documents. \n Organize: Keep files tidy with folders. \n Share: Collaborate with your team easily.",
+      "توقيع ومشاركة مستنداتك الرقمية لم يكن أبسط من الآن، جروالسرعةب منصة صدق واستمتع \n بالسهولة ",
   },
 ];
 
@@ -44,7 +44,7 @@ const Onboarding = ({ navigation }: OnboardingScreenProps) => {
 
   const IndexData = ["01", "02", "03"];
 
-  const IndexImage = [IMAGES.onborder6, IMAGES.onborder7, IMAGES.onborder8];
+  const IndexImage = [IMAGES.onborder10, IMAGES.onborder10, IMAGES.onborder9];
 
   const scrollRef = useRef<any>();
 
@@ -128,7 +128,7 @@ const Onboarding = ({ navigation }: OnboardingScreenProps) => {
                   ]}
                   key={index}
                 >
-                  <View style={{ paddingHorizontal: 30 }}>
+                  <View style={{ paddingHorizontal: 30, paddingBottom: 110 }}>
                     <Text
                       style={[
                         styles.title1,

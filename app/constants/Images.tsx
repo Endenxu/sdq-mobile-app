@@ -128,6 +128,13 @@ export const IMAGES = {
   onborder7: require("../assets/images/onbording/onboarding2.png"),
   onborder8: require("../assets/images/onbording/onboarding3.png"),
 
+  onborder9: require("../assets/images/onbording/onboarding4.png"),
+  onborder10: require("../assets/images/onbording/onboarding5.png"),
+  onborder11: require("../assets/images/onbording/onboarding6.png"),
+  onborder12: require("../assets/images/onbording/onboarding7.png"),
+  onborder13: require("../assets/images/onbording/onboarding8.png"),
+  sdqmain: require("../assets/images/onbording/sdqmain.png"),
+
   item1: require("../assets/images/item/pic1.png"),
   item2: require("../assets/images/item/pic2.png"),
   item3: require("../assets/images/item/pic3.png"),

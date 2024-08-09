@@ -54,7 +54,7 @@ const ForgotPassword = ({ navigation }: ForgotPasswordScreenProps) => {
         <View style={{ flex: 1, alignItems: "center", marginLeft: -40 }}>
           <Image
             style={{ height: 80, width: 150, resizeMode: "contain" }}
-            source={theme.dark ? IMAGES.sdqnobg : IMAGES.sdqnobg}
+            source={theme.dark ? IMAGES.onborder12 : IMAGES.onborder12}
           />
         </View>
       </View>
